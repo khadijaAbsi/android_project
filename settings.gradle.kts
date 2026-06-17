@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "1220458_1220014_courseProject"
+rootProject.name = "1220458_1220014_CourseProject"
 include(":app")

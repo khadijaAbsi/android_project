@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme._1220458_1220014_courseProject">
         <activity
-            android:name=".IntroductionActivity"
-            android:exported="false" />
-        <activity
             android:name=".SplashActivity"
             android:exported="false" />
         <activity
