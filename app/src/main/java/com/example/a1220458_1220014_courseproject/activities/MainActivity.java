@@ -13,14 +13,14 @@ import com.example.a1220458_1220014_courseproject.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView imgLogo;
+    //private ImageView imgLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imgLogo = findViewById(R.id.imgLogo);
+        //imgLogo = findViewById(R.id.imgLogo);
 
         Animation anim =
                 AnimationUtils.loadAnimation(this, R.anim.logo_animation);
