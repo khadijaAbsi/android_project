@@ -159,4 +159,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return exists;
     }
+    public Cursor getUserByEmail(String email) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        return db.rawQuery(
+                "SELECT * FROM users WHERE email=?",
+                new String[]{email}
+        );
+    }
+    public boolean updateUser(String oldEmail,
+                              String newEmail,
+                              String firstName,
+                              String lastName,
+                              String phone) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("email", newEmail);
+        values.put("first_name", firstName);
+        values.put("last_name", lastName);
+        values.put("phone", phone);
+
+        int result = db.update(
+                "users",
+                values,
+                "email=?",
+                new String[]{oldEmail}
+        );
+
+        return result > 0;
+    }
 }

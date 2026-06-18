@@ -1,8 +1,10 @@
 package com.example.a1220458_1220014_courseproject.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,8 +17,10 @@ public class LoginActivity extends AppCompatActivity {
 
     Button btnLogin, btnRegister;
     EditText etUsername, etPassword;
+    CheckBox cbRememberMe;
 
     DatabaseHelper databaseHelper;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,20 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
+
+        cbRememberMe = findViewById(R.id.cbRememberMe);
+
+        sharedPreferences =
+                getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+
+        String savedEmail =
+                sharedPreferences.getString("email", "");
+
+        boolean remember =
+                sharedPreferences.getBoolean("remember", false);
+
+        etUsername.setText(savedEmail);
+        cbRememberMe.setChecked(remember);
 
         btnLogin.setOnClickListener(v -> {
 
@@ -52,19 +70,32 @@ public class LoginActivity extends AppCompatActivity {
             // Admin Login
             if (databaseHelper.checkAdmin(email, password)) {
 
+                SharedPreferences.Editor editor =
+                        sharedPreferences.edit();
+
+                if (cbRememberMe.isChecked()) {
+                    editor.putString("email", email);
+                    editor.putBoolean("remember", true);
+                    editor.putString("current_user_email", email);
+                } else {
+                    editor.clear();
+                }
+
+                editor.apply();
+
                 Toast.makeText(
                         this,
                         "Admin Login",
                         Toast.LENGTH_SHORT
                 ).show();
 
-                Intent intent =
+                startActivity(
                         new Intent(
                                 LoginActivity.this,
                                 HomeActivity.class
-                        );
+                        )
+                );
 
-                startActivity(intent);
                 finish();
                 return;
             }
@@ -72,19 +103,32 @@ public class LoginActivity extends AppCompatActivity {
             // User Login
             if (databaseHelper.checkUser(email, password)) {
 
+                SharedPreferences.Editor editor =
+                        sharedPreferences.edit();
+
+                if (cbRememberMe.isChecked()) {
+                    editor.putString("email", email);
+                    editor.putBoolean("remember", true);
+                    editor.putString("current_user_email", email);
+                } else {
+                    editor.clear();
+                }
+
+                editor.apply();
+
                 Toast.makeText(
                         this,
                         "Login Successful",
                         Toast.LENGTH_SHORT
                 ).show();
 
-                Intent intent =
+                startActivity(
                         new Intent(
                                 LoginActivity.this,
                                 HomeActivity.class
-                        );
+                        )
+                );
 
-                startActivity(intent);
                 finish();
 
             } else {
