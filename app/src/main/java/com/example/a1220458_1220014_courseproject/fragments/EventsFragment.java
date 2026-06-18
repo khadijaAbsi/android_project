@@ -23,7 +23,7 @@ public class EventsFragment extends Fragment {
 
 
         return inflater.inflate(
-                R.layout.fragment_home,
+                R.layout.fragment_events,
                 container,
                 false
         );
