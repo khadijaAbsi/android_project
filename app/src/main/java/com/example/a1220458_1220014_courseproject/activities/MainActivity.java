@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.a1220458_1220014_courseproject.R;
+import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,6 +15,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        dbHelper.getWritableDatabase();
 
         new Handler().postDelayed(() -> {
 
@@ -26,6 +30,5 @@ public class MainActivity extends AppCompatActivity {
             finish();
 
         }, 3000);
-
     }
 }
