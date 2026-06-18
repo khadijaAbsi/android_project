@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.adapters.EventAdapter;
 import com.example.a1220458_1220014_courseproject.models.Event;
-
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class EventsFragment extends Fragment {
     ArrayList<Event> eventList;
 
     EventAdapter adapter;
-
+    SearchView searchView;
 
 
     @Nullable
@@ -53,7 +53,8 @@ public class EventsFragment extends Fragment {
 
         recyclerView =
                 view.findViewById(R.id.eventsRecyclerView);
-
+        searchView =
+                view.findViewById(R.id.searchView);
 
 
         recyclerView.setLayoutManager(
@@ -64,7 +65,6 @@ public class EventsFragment extends Fragment {
         eventList = new ArrayList<>();
 
 
-        // بيانات تجريبية مؤقتة
 
         eventList.add(new Event(
                 1,
@@ -81,13 +81,13 @@ public class EventsFragment extends Fragment {
 
         eventList.add(new Event(
                 2,
-                "Programming Competition",
-                "Java Android Contest",
+                "problem solving Competition",
+                "C programing",
                 "Competition",
-                "2026-06-15",
+                "2026-06-19",
                 "12:00 PM",
-                "Lab 3",
-                50,
+                "Ramallah Birzeit",
+                500,
                 ""));
 
 
@@ -97,7 +97,28 @@ public class EventsFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
+        searchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
 
+
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+
+                        return false;
+
+                    }
+
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+
+                        adapter.filterList(newText);
+
+                        return true;
+
+                    }
+
+                });
 
         return view;
 

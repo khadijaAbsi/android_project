@@ -8,8 +8,17 @@
 
     android:orientation="vertical"
 
-    android:padding="16dp">
+    android:padding="16dp"
 
+    android:paddingTop="60dp">
+
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search events..." />
 
     <androidx.recyclerview.widget.RecyclerView
 

@@ -1,6 +1,7 @@
 package com.example.a1220458_1220014_courseproject.adapters;
 
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,12 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.a1220458_1220014_courseproject.R;
+import com.example.a1220458_1220014_courseproject.fragments.EventDetailsFragment;
 import com.example.a1220458_1220014_courseproject.models.Event;
 import com.example.a1220458_1220014_courseproject.utils.FavoriteManager;
 import com.example.a1220458_1220014_courseproject.utils.ReservationManager;
@@ -26,14 +29,13 @@ import java.util.ArrayList;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
 
-
     ArrayList<Event> eventList;
-
-
+    ArrayList<Event> originalList;
 
     public EventAdapter(ArrayList<Event> eventList){
 
         this.eventList = eventList;
+        this.originalList = new ArrayList<>(eventList);
 
     }
 
@@ -76,6 +78,44 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
 
+        holder.itemView.setOnClickListener(v -> {
+
+
+            EventDetailsFragment fragment =
+                    new EventDetailsFragment();
+
+
+            Bundle bundle = new Bundle();
+
+
+            bundle.putString("title", event.getTitle());
+
+            bundle.putString("description", event.getDescription());
+
+            bundle.putString("category", event.getCategory());
+
+            bundle.putString("date", event.getDate());
+
+            bundle.putString("location", event.getLocation());
+
+
+            fragment.setArguments(bundle);
+
+
+
+            ((FragmentActivity)v.getContext())
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit();
+
+
+        });
+
+
+
+
 
         holder.reserve.setOnClickListener(v -> {
 
@@ -91,6 +131,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
         });
+
+
 
 
         holder.favorite.setOnClickListener(v -> {
@@ -162,6 +204,40 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         }
 
     }
+    public void filterList(String text){
 
+
+        eventList.clear();
+
+
+        if(text.isEmpty()){
+
+
+            eventList.addAll(originalList);
+
+
+        }else{
+
+
+            for(Event event : originalList){
+
+
+                if(event.getTitle()
+                        .toLowerCase()
+                        .contains(text.toLowerCase())){
+
+
+                    eventList.add(event);
+
+                }
+
+            }
+
+        }
+
+
+        notifyDataSetChanged();
+
+    }
 
 }
