@@ -6,13 +6,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.example.a1220458_1220014_courseproject.R;
+import com.example.a1220458_1220014_courseproject.adapters.EventAdapter;
+import com.example.a1220458_1220014_courseproject.utils.ReservationManager;
+
 
 
 public class ReservationsFragment extends Fragment {
+
+
+
+    RecyclerView recyclerView;
+
 
 
     @Nullable
@@ -22,11 +34,35 @@ public class ReservationsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        return inflater.inflate(
-                R.layout.fragment_home,
+
+        View view = inflater.inflate(
+                R.layout.fragment_reservations,
                 container,
-                false
-        );
+                false);
+
+
+
+        recyclerView =
+                view.findViewById(R.id.reservationsRecyclerView);
+
+
+
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(getContext()));
+
+
+
+        EventAdapter adapter =
+                new EventAdapter(
+                        ReservationManager.getReservations()
+                );
+
+
+        recyclerView.setAdapter(adapter);
+
+
+
+        return view;
 
     }
 

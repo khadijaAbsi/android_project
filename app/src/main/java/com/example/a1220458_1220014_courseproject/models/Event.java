@@ -16,15 +16,10 @@ public class Event {
 
 
 
-    public Event(int id,
-                 String title,
-                 String description,
-                 String category,
-                 String date,
-                 String time,
-                 String location,
-                 int seats,
-                 String image) {
+    public Event(int id, String title, String description,
+                 String category, String date,
+                 String time, String location,
+                 int seats, String image) {
 
 
         this.id = id;
@@ -74,6 +69,5 @@ public class Event {
     public int getSeats() {
         return seats;
     }
-
 
 }

@@ -1,62 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<androidx.cardview.widget.CardView
+
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_margin="8dp"
+
+    app:cardCornerRadius="15dp"
+    app:cardElevation="5dp">
 
 
-    <TextView
-        android:id="@+id/eventTitle"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:text="Event Title"
-
-        android:textSize="20sp"/>
-
-
-    <TextView
-        android:id="@+id/eventDescription"
+    <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:text="Description"/>
+        android:orientation="vertical"
+        android:padding="16dp">
 
 
-    <TextView
-        android:id="@+id/eventDate"
+        <TextView
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+            android:id="@+id/eventTitle"
 
-        android:text="Date"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
+            android:textSize="22sp"
+            android:textStyle="bold"
 
-    <Button
-        android:id="@+id/favoriteButton"
-
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-
-        android:text="Favorite"/>
+            android:textColor="@color/green_dark"/>
 
 
-    <Button
-        android:id="@+id/reserveButton"
+        <TextView
 
-        android:layout_width="wrap_content"
+            android:id="@+id/eventCategory"
 
-        android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        android:text="Reserve"/>
+            android:layout_marginTop="8dp"
+
+            android:textColor="@color/green"/>
 
 
-</LinearLayout>
+        <TextView
+
+            android:id="@+id/eventDate"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"/>
+
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal"
+
+            android:layout_marginTop="15dp">
+
+
+            <Button
+
+                android:id="@+id/btnReserve"
+
+                android:layout_width="0dp"
+
+                android:layout_weight="1"
+
+                android:layout_height="wrap_content"
+
+                android:text="Reserve"
+
+                android:textColor="@android:color/white"
+
+                android:backgroundTint="@color/green"/>
+
+
+            <Button
+
+                android:id="@+id/btnFavorite"
+
+                android:layout_width="0dp"
+
+                android:layout_weight="1"
+
+                android:layout_height="wrap_content"
+
+                android:text="Favorite"
+
+                android:layout_marginStart="10dp"
+
+                android:textColor="@android:color/white"
+
+                android:backgroundTint="@color/green_dark"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
