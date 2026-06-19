@@ -2,7 +2,6 @@ package com.example.a1220458_1220014_courseproject.fragments;
 
 
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.adapters.EventAdapter;
 import com.example.a1220458_1220014_courseproject.models.Event;
+
+
+import android.widget.ArrayAdapter;
 import android.widget.SearchView;
+import android.widget.Spinner;
+
 
 import java.util.ArrayList;
 
@@ -29,10 +33,24 @@ public class EventsFragment extends Fragment {
 
     RecyclerView recyclerView;
 
-    ArrayList<Event> eventList;
+
+    ArrayList<Event> allEvents;
+
 
     EventAdapter adapter;
+
+
     SearchView searchView;
+
+
+    Spinner categorySpinner;
+
+
+    String searchText = "";
+
+    String selectedCategory = "All";
+
+
 
 
     @Nullable
@@ -43,18 +61,22 @@ public class EventsFragment extends Fragment {
 
 
 
-        View view =
-                inflater.inflate(
-                        R.layout.fragment_events,
-                        container,
-                        false);
+        View view = inflater.inflate(
+                R.layout.fragment_events,
+                container,
+                false);
 
 
 
-        recyclerView =
-                view.findViewById(R.id.eventsRecyclerView);
-        searchView =
-                view.findViewById(R.id.searchView);
+        recyclerView = view.findViewById(R.id.eventsRecyclerView);
+
+
+        searchView = view.findViewById(R.id.searchView);
+
+
+        categorySpinner = view.findViewById(R.id.categorySpinner);
+
+
 
 
         recyclerView.setLayoutManager(
@@ -62,11 +84,13 @@ public class EventsFragment extends Fragment {
 
 
 
-        eventList = new ArrayList<>();
+
+        allEvents = new ArrayList<>();
 
 
 
-        eventList.add(new Event(
+
+        allEvents.add(new Event(
                 1,
                 "AI Workshop",
                 "Introduction to AI",
@@ -79,7 +103,7 @@ public class EventsFragment extends Fragment {
 
 
 
-        eventList.add(new Event(
+        allEvents.add(new Event(
                 2,
                 "problem solving Competition",
                 "C programing",
@@ -92,27 +116,101 @@ public class EventsFragment extends Fragment {
 
 
 
-        adapter = new EventAdapter(eventList);
+
+        adapter = new EventAdapter(new ArrayList<>(allEvents));
 
 
         recyclerView.setAdapter(adapter);
+
+
+
+
+        String[] categories = {
+
+                "All",
+                "Technology",
+                "Competition"
+
+        };
+
+
+
+
+        ArrayAdapter<String> spinnerAdapter =
+                new ArrayAdapter<>(
+                        getContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        categories);
+
+
+
+        categorySpinner.setAdapter(spinnerAdapter);
+
+
+
+
+        categorySpinner.setOnItemSelectedListener(
+                new android.widget.AdapterView.OnItemSelectedListener() {
+
+
+                    @Override
+                    public void onItemSelected(
+                            android.widget.AdapterView<?> parent,
+                            View view,
+                            int position,
+                            long id) {
+
+
+                        selectedCategory =
+                                categories[position];
+
+
+                        updateEvents();
+
+
+                    }
+
+
+
+                    @Override
+                    public void onNothingSelected(
+                            android.widget.AdapterView<?> parent) {
+
+
+                    }
+
+                });
+
+
+
+
 
         searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
 
 
+
                     @Override
                     public boolean onQueryTextSubmit(String query) {
+
 
                         return false;
 
                     }
 
 
+
+
+
                     @Override
                     public boolean onQueryTextChange(String newText) {
 
-                        adapter.filterList(newText);
+
+                        searchText = newText;
+
+
+                        updateEvents();
+
 
                         return true;
 
@@ -120,8 +218,71 @@ public class EventsFragment extends Fragment {
 
                 });
 
+
+
+
         return view;
 
     }
+
+
+
+
+
+
+
+    private void updateEvents(){
+
+
+
+        ArrayList<Event> filteredList =
+                new ArrayList<>();
+
+
+
+
+        for(Event event : allEvents){
+
+
+
+            boolean searchMatch =
+                    event.getTitle()
+                            .toLowerCase()
+                            .contains(searchText.toLowerCase());
+
+
+
+
+            boolean categoryMatch =
+                    selectedCategory.equals("All")
+                            ||
+                            event.getCategory()
+                                    .equals(selectedCategory);
+
+
+
+
+
+            if(searchMatch && categoryMatch){
+
+
+                filteredList.add(event);
+
+
+            }
+
+
+        }
+
+
+
+
+        adapter.updateList(filteredList);
+
+
+
+    }
+
+
 
 }

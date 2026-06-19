@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.fragments.EventDetailsFragment;
+import com.example.a1220458_1220014_courseproject.fragments.ReservationFormFragment;
 import com.example.a1220458_1220014_courseproject.models.Event;
 import com.example.a1220458_1220014_courseproject.utils.FavoriteManager;
 import com.example.a1220458_1220014_courseproject.utils.ReservationManager;
@@ -30,12 +31,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
     ArrayList<Event> eventList;
-    ArrayList<Event> originalList;
+
 
     public EventAdapter(ArrayList<Event> eventList){
 
         this.eventList = eventList;
-        this.originalList = new ArrayList<>(eventList);
 
     }
 
@@ -85,6 +85,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     new EventDetailsFragment();
 
 
+
             Bundle bundle = new Bundle();
 
 
@@ -116,21 +117,24 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
 
-
         holder.reserve.setOnClickListener(v -> {
 
 
-            ReservationManager.addReservation(event);
+            ReservationFormFragment fragment =
+                    new ReservationFormFragment();
 
 
-            Toast.makeText(
-                    v.getContext(),
-                    "Reservation added",
-                    Toast.LENGTH_SHORT
-            ).show();
+
+            ((FragmentActivity)v.getContext())
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit();
 
 
         });
+
 
 
 
@@ -157,6 +161,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
 
+
     @Override
     public int getItemCount() {
 
@@ -168,18 +173,42 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
 
+    public void updateList(ArrayList<Event> newList){
+
+
+        eventList.clear();
+
+
+        eventList.addAll(newList);
+
+
+        notifyDataSetChanged();
+
+
+    }
+
+
+
+
+
+
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
 
 
 
         TextView title;
+
         TextView category;
+
         TextView date;
 
 
         Button reserve;
+
         Button favorite;
+
+
 
 
 
@@ -196,6 +225,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             date = itemView.findViewById(R.id.eventDate);
 
 
+
             reserve = itemView.findViewById(R.id.btnReserve);
 
             favorite = itemView.findViewById(R.id.btnFavorite);
@@ -204,40 +234,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         }
 
     }
-    public void filterList(String text){
 
-
-        eventList.clear();
-
-
-        if(text.isEmpty()){
-
-
-            eventList.addAll(originalList);
-
-
-        }else{
-
-
-            for(Event event : originalList){
-
-
-                if(event.getTitle()
-                        .toLowerCase()
-                        .contains(text.toLowerCase())){
-
-
-                    eventList.add(event);
-
-                }
-
-            }
-
-        }
-
-
-        notifyDataSetChanged();
-
-    }
 
 }

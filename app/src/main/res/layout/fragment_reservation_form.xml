@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
 
     android:layout_width="match_parent"
 
@@ -8,30 +10,50 @@
 
     android:orientation="vertical"
 
-    android:padding="16dp"
-
-    android:paddingTop="60dp">
+    android:padding="20dp">
 
 
-    <SearchView
-        android:id="@+id/searchView"
+
+    <EditText
+
+        android:id="@+id/quantity"
+
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search events..." />
+
+        android:hint="Number of participants"
+
+        android:inputType="number"/>
+
+
+
+
     <Spinner
-        android:id="@+id/categorySpinner"
+
+        android:id="@+id/reservationType"
+
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"/>
 
-        android:id="@+id/eventsRecyclerView"
+
+
+
+    <Button
+
+        android:id="@+id/confirmReservation"
 
         android:layout_width="match_parent"
 
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="30dp"
+
+        android:text="Confirm Reservation"/>
+
 
 
 </LinearLayout>

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import android.widget.Button;
+
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -23,11 +25,16 @@ public class HomeFragment extends Fragment {
 
 
 
+    Button exploreButton;
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+
 
 
         View view = inflater.inflate(
@@ -36,7 +43,12 @@ public class HomeFragment extends Fragment {
                 false);
 
 
-        View button = view.findViewById(R.id.exploreButton);
+
+
+        exploreButton =
+                view.findViewById(R.id.exploreButton);
+
+
 
 
         Animation animation =
@@ -45,7 +57,29 @@ public class HomeFragment extends Fragment {
                         R.anim.button_scale);
 
 
-        button.startAnimation(animation);
+
+        exploreButton.startAnimation(animation);
+
+
+
+
+        exploreButton.setOnClickListener(v -> {
+
+
+
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(
+                            R.id.fragmentContainer,
+                            new EventsFragment()
+                    )
+                    .addToBackStack(null)
+                    .commit();
+
+
+
+        });
+
 
 
 
