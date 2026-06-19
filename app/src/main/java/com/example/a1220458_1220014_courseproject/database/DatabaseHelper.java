@@ -81,7 +81,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         ");";
 
         db.execSQL(CREATE_RESERVATIONS_TABLE);
+        ContentValues values = new ContentValues();
 
+        values.put("title","AI Workshop");
+        values.put("description","Introduction to AI");
+        values.put("category","Technology");
+        values.put("date","2026-06-10");
+        values.put("time","10:00 AM");
+        values.put("location","Engineering Hall");
+        values.put("seats",80);
+        values.put("image","");
+
+
+        db.insert(
+                "events",
+                null,
+                values
+        );
         // Default Admin
         db.execSQL(
                 "INSERT INTO admins(email,password) VALUES('admin@admin.com','Admin123!')"
@@ -191,5 +207,104 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
 
         return result > 0;
+    }
+    public boolean insertReservation(int userId,
+                                     int eventId,
+                                     int quantity,
+                                     String reservationType,
+                                     String status) {
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        ContentValues values = new ContentValues();
+
+
+        values.put("user_id", userId);
+
+        values.put("event_id", eventId);
+
+        values.put("quantity", quantity);
+
+        values.put("reservation_type", reservationType);
+
+        values.put("status", status);
+
+
+
+        long result = db.insert(
+                "reservations",
+                null,
+                values
+        );
+
+
+        return result != -1;
+
+    }
+    public Cursor getReservations(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        return db.rawQuery(
+                "SELECT reservations.*, events.title " +
+                        "FROM reservations " +
+                        "INNER JOIN events " +
+                        "ON reservations.event_id = events.id",
+                null
+        );
+
+    }
+    public boolean insertEvent(String title,
+                               String description,
+                               String category,
+                               String date,
+                               String time,
+                               String location,
+                               int seats,
+                               String image){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        ContentValues values = new ContentValues();
+
+
+        values.put("title", title);
+        values.put("description", description);
+        values.put("category", category);
+        values.put("date", date);
+        values.put("time", time);
+        values.put("location", location);
+        values.put("seats", seats);
+        values.put("image", image);
+
+
+        long result =
+                db.insert(
+                        "events",
+                        null,
+                        values
+                );
+
+
+        return result != -1;
+
+    }
+
+
+
+    public Cursor getAllEvents(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        return db.rawQuery(
+                "SELECT * FROM events",
+                null
+        );
+
     }
 }

@@ -1,11 +1,10 @@
 package com.example.a1220458_1220014_courseproject.fragments;
-
-
+import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.database.Cursor;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 
 public class EventsFragment extends Fragment {
 
-
+    DatabaseHelper databaseHelper;
 
     RecyclerView recyclerView;
 
@@ -87,34 +86,73 @@ public class EventsFragment extends Fragment {
 
         allEvents = new ArrayList<>();
 
+        databaseHelper =
+                new DatabaseHelper(getContext());
+
+
+        Cursor cursor =
+                databaseHelper.getAllEvents();
 
 
 
-        allEvents.add(new Event(
-                1,
-                "AI Workshop",
-                "Introduction to AI",
-                "Technology",
-                "2026-06-10",
-                "10:00 AM",
-                "Engineering Hall",
-                80,
-                ""));
+        while(cursor.moveToNext()){
 
 
+            allEvents.add(
+                    new Event(
 
-        allEvents.add(new Event(
-                2,
-                "problem solving Competition",
-                "C programing",
-                "Competition",
-                "2026-06-19",
-                "12:00 PM",
-                "Ramallah Birzeit",
-                500,
-                ""));
+                            cursor.getInt(
+                                    cursor.getColumnIndexOrThrow("id")
+                            ),
 
 
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("title")
+                            ),
+
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("description")
+                            ),
+
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("category")
+                            ),
+
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("date")
+                            ),
+
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("time")
+                            ),
+
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("location")
+                            ),
+
+
+                            cursor.getInt(
+                                    cursor.getColumnIndexOrThrow("seats")
+                            ),
+
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("image")
+                            )
+
+                    )
+            );
+
+
+        }
+
+
+        cursor.close();
 
 
         adapter = new EventAdapter(new ArrayList<>(allEvents));

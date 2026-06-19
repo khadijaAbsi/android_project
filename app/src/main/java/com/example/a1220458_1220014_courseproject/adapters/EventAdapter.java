@@ -124,11 +124,27 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     new ReservationFormFragment();
 
 
+            Bundle bundle =
+                    new Bundle();
+
+
+            bundle.putInt(
+                    "eventId",
+                    event.getId()
+            );
+
+
+            fragment.setArguments(bundle);
+
+
 
             ((FragmentActivity)v.getContext())
                     .getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment)
+                    .replace(
+                            R.id.fragmentContainer,
+                            fragment
+                    )
                     .addToBackStack(null)
                     .commit();
 
@@ -159,19 +175,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
 
-
-
-
     @Override
     public int getItemCount() {
 
         return eventList.size();
 
     }
-
-
-
-
 
     public void updateList(ArrayList<Event> newList){
 
@@ -186,11 +195,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
     }
-
-
-
-
-
 
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {

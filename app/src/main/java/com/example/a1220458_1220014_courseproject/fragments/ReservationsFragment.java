@@ -1,7 +1,9 @@
 package com.example.a1220458_1220014_courseproject.fragments;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.a1220458_1220014_courseproject.R;
-import com.example.a1220458_1220014_courseproject.adapters.EventAdapter;
-import com.example.a1220458_1220014_courseproject.utils.ReservationManager;
+import com.example.a1220458_1220014_courseproject.adapters.ReservationAdapter;
+import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
+
+
+import java.util.ArrayList;
 
 
 
@@ -24,6 +29,12 @@ public class ReservationsFragment extends Fragment {
 
 
     RecyclerView recyclerView;
+
+    ArrayList<String> reservations;
+
+    ReservationAdapter adapter;
+
+    DatabaseHelper databaseHelper;
 
 
 
@@ -34,7 +45,6 @@ public class ReservationsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-
         View view = inflater.inflate(
                 R.layout.fragment_reservations,
                 container,
@@ -43,7 +53,8 @@ public class ReservationsFragment extends Fragment {
 
 
         recyclerView =
-                view.findViewById(R.id.reservationsRecyclerView);
+                view.findViewById(
+                        R.id.reservationsRecyclerView);
 
 
 
@@ -52,10 +63,65 @@ public class ReservationsFragment extends Fragment {
 
 
 
-        EventAdapter adapter =
-                new EventAdapter(
-                        ReservationManager.getReservations()
-                );
+        databaseHelper =
+                new DatabaseHelper(getContext());
+
+
+
+        reservations =
+                new ArrayList<>();
+
+
+
+        Cursor cursor =
+                databaseHelper.getReservations();
+
+
+
+        while(cursor.moveToNext()){
+
+            String eventName =
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow("title")
+                    );
+            int quantity =
+                    cursor.getInt(
+                            cursor.getColumnIndexOrThrow("quantity")
+                    );
+
+
+            String type =
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow("reservation_type")
+                    );
+
+
+            String status =
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow("status")
+                    );
+
+
+
+            reservations.add(
+                    "Event: " + eventName
+                            + "\nQuantity: " + quantity
+                            + "\nType: " + type
+                            + "\nStatus: " + status
+            );
+
+
+        }
+
+
+
+        cursor.close();
+
+
+
+        adapter =
+                new ReservationAdapter(reservations);
+
 
 
         recyclerView.setAdapter(adapter);
@@ -64,6 +130,8 @@ public class ReservationsFragment extends Fragment {
 
         return view;
 
+
     }
+
 
 }

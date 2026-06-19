@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -16,10 +18,12 @@ import androidx.fragment.app.Fragment;
 
 
 import com.example.a1220458_1220014_courseproject.R;
+import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 
 
 
 public class ReservationFormFragment extends Fragment {
+
 
 
     EditText quantity;
@@ -27,6 +31,10 @@ public class ReservationFormFragment extends Fragment {
     Spinner reservationType;
 
     Button confirmButton;
+
+    DatabaseHelper databaseHelper;
+
+    int eventId;
 
 
 
@@ -53,12 +61,60 @@ public class ReservationFormFragment extends Fragment {
 
 
 
+        databaseHelper = new DatabaseHelper(getContext());
+
+
+
+        if(getArguments() != null){
+
+            eventId =
+                    getArguments().getInt("eventId");
+
+        }
+
+
+
+
+        String[] reservationTypes = {
+                "Student",
+                "Lecturer",
+                "Guest",
+                "VIP"
+        };
+
+
+
+        ArrayAdapter<String> spinnerAdapter =
+                new ArrayAdapter<>(
+                        getContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        reservationTypes
+                );
+
+
+
+        reservationType.setAdapter(spinnerAdapter);
+
+
+
 
         confirmButton.setOnClickListener(v -> {
 
 
 
-            if(quantity.getText().toString().isEmpty()){
+            String count =
+                    quantity.getText().toString();
+
+
+
+            String type =
+                    reservationType.getSelectedItem().toString();
+
+
+
+
+            if(count.isEmpty()){
+
 
 
                 Toast.makeText(
@@ -68,14 +124,46 @@ public class ReservationFormFragment extends Fragment {
                 ).show();
 
 
+
             }else{
 
 
-                Toast.makeText(
-                        getContext(),
-                        "Reservation Confirmed",
-                        Toast.LENGTH_SHORT
-                ).show();
+
+                boolean saved =
+                        databaseHelper.insertReservation(
+                                1,
+                                eventId,
+                                Integer.parseInt(count),
+                                type,
+                                "Confirmed"
+                        );
+
+
+
+                if(saved){
+
+
+                    Toast.makeText(
+                            getContext(),
+                            "Reservation Confirmed\n"
+                                    + "Quantity: " + count
+                                    + "\nType: " + type,
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+
+                }else{
+
+
+                    Toast.makeText(
+                            getContext(),
+                            "Reservation failed",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+
+                }
+
 
 
             }
