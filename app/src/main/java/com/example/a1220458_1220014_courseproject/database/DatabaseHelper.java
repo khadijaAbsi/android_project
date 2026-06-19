@@ -168,8 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{email}
         );
     }
-    public boolean updateUser(String oldEmail,
-                              String newEmail,
+    public boolean updateUser(String email,
                               String firstName,
                               String lastName,
                               String phone) {
@@ -178,7 +177,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put("email", newEmail);
         values.put("first_name", firstName);
         values.put("last_name", lastName);
         values.put("phone", phone);
@@ -187,7 +185,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "users",
                 values,
                 "email=?",
-                new String[]{oldEmail}
+                new String[]{email}
+        );
+
+        return result > 0;
+    }
+    public boolean updatePassword(String email,
+                                  String newPassword) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("password", newPassword);
+
+        int result = db.update(
+                "users",
+                values,
+                "email=?",
+                new String[]{email}
         );
 
         return result > 0;

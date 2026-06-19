@@ -11,21 +11,35 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import android.widget.TextView;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.widget.ImageView;
 
 import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 
 public class ProfileFragment extends Fragment {
 
-    EditText etProfileEmail;
+    TextView tvProfileEmail;
     EditText etProfileFirstName;
     EditText etProfileLastName;
     EditText etProfilePhone;
-    EditText etProfileGender;
-    EditText etProfileMajor;
+    TextView tvProfileGender;
+    TextView tvProfileMajor;
+
+    EditText etNewPassword;
+    EditText etConfirmPassword;
+
+    Button btnUpdateProfile;
 
     DatabaseHelper databaseHelper;
-    Button btnUpdateProfile;
+    ImageView imgProfile;
+    Button btnChooseImage;
+
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     public ProfileFragment() {
     }
@@ -41,14 +55,20 @@ public class ProfileFragment extends Fragment {
                 false
         );
 
-        etProfileEmail = view.findViewById(R.id.etProfileEmail);
+        tvProfileEmail = view.findViewById(R.id.tvProfileEmail);
         etProfileFirstName = view.findViewById(R.id.etProfileFirstName);
         etProfileLastName = view.findViewById(R.id.etProfileLastName);
         etProfilePhone = view.findViewById(R.id.etProfilePhone);
-        etProfileGender = view.findViewById(R.id.etProfileGender);
-        etProfileMajor = view.findViewById(R.id.etProfileMajor);
-        btnUpdateProfile =
-                view.findViewById(R.id.btnUpdateProfile);
+        tvProfileGender = view.findViewById(R.id.tvProfileGender);
+        tvProfileMajor = view.findViewById(R.id.tvProfileMajor);
+
+        etNewPassword = view.findViewById(R.id.etNewPassword);
+        etConfirmPassword = view.findViewById(R.id.etConfirmPassword);
+
+        btnUpdateProfile = view.findViewById(R.id.btnUpdateProfile);
+        imgProfile = view.findViewById(R.id.imgProfile);
+
+        btnChooseImage = view.findViewById(R.id.btnChooseImage);
 
         databaseHelper = new DatabaseHelper(requireContext());
 
@@ -69,7 +89,7 @@ public class ProfileFragment extends Fragment {
 
         if (cursor.moveToFirst()) {
 
-            etProfileEmail.setText(
+            tvProfileEmail.setText(
                     cursor.getString(
                             cursor.getColumnIndexOrThrow("email")
                     )
@@ -93,13 +113,14 @@ public class ProfileFragment extends Fragment {
                     )
             );
 
-            etProfileGender.setText(
+            tvProfileGender.setText(
                     cursor.getString(
                             cursor.getColumnIndexOrThrow("gender")
                     )
             );
 
-            etProfileMajor.setText(
+
+            tvProfileMajor.setText(
                     cursor.getString(
                             cursor.getColumnIndexOrThrow("major")
                     )
@@ -107,10 +128,8 @@ public class ProfileFragment extends Fragment {
         }
 
         cursor.close();
-        btnUpdateProfile.setOnClickListener(v -> {
 
-            String newEmail =
-                    etProfileEmail.getText().toString().trim();
+        btnUpdateProfile.setOnClickListener(v -> {
 
             String firstName =
                     etProfileFirstName.getText().toString().trim();
@@ -120,7 +139,14 @@ public class ProfileFragment extends Fragment {
 
             String phone =
                     etProfilePhone.getText().toString().trim();
-            if(firstName.length() < 3){
+
+            String newPassword =
+                    etNewPassword.getText().toString().trim();
+
+            String confirmPassword =
+                    etConfirmPassword.getText().toString().trim();
+
+            if (firstName.length() < 3) {
 
                 etProfileFirstName.setError(
                         "Minimum 3 characters"
@@ -129,7 +155,7 @@ public class ProfileFragment extends Fragment {
                 return;
             }
 
-            if(lastName.length() < 3){
+            if (lastName.length() < 3) {
 
                 etProfileLastName.setError(
                         "Minimum 3 characters"
@@ -138,7 +164,7 @@ public class ProfileFragment extends Fragment {
                 return;
             }
 
-            if(phone.isEmpty()){
+            if (phone.isEmpty()) {
 
                 etProfilePhone.setError(
                         "Enter Phone Number"
@@ -146,23 +172,63 @@ public class ProfileFragment extends Fragment {
 
                 return;
             }
-            if (!android.util.Patterns.EMAIL_ADDRESS
-                    .matcher(newEmail)
-                    .matches()) {
 
-                etProfileEmail.setError("Invalid Email");
-                return;
+            if (!newPassword.isEmpty()) {
+
+                if (newPassword.length() < 6) {
+
+                    etNewPassword.setError(
+                            "Password must be at least 6 characters"
+                    );
+
+                    return;
+                }
+
+                if (!newPassword.matches(".*[A-Za-z].*")) {
+
+                    etNewPassword.setError(
+                            "Password must contain a letter"
+                    );
+
+                    return;
+                }
+
+                if (!newPassword.matches(".*\\d.*")) {
+
+                    etNewPassword.setError(
+                            "Password must contain a number"
+                    );
+
+                    return;
+                }
+
+                if (!newPassword.equals(confirmPassword)) {
+
+                    etConfirmPassword.setError(
+                            "Passwords do not match"
+                    );
+
+                    return;
+                }
             }
+
             boolean updated =
                     databaseHelper.updateUser(
                             email,
-                            newEmail,
                             firstName,
                             lastName,
                             phone
                     );
 
-            if(updated){
+            if (updated) {
+
+                if (!newPassword.isEmpty()) {
+
+                    databaseHelper.updatePassword(
+                            email,
+                            newPassword
+                    );
+                }
 
                 Toast.makeText(
                         requireContext(),
@@ -170,7 +236,7 @@ public class ProfileFragment extends Fragment {
                         Toast.LENGTH_SHORT
                 ).show();
 
-            }else{
+            } else {
 
                 Toast.makeText(
                         requireContext(),
@@ -180,7 +246,41 @@ public class ProfileFragment extends Fragment {
             }
 
         });
+        btnChooseImage.setOnClickListener(v -> {
 
+            Intent intent = new Intent(
+                    Intent.ACTION_PICK
+            );
+
+            intent.setType("image/*");
+
+            startActivityForResult(
+                    intent,
+                    PICK_IMAGE_REQUEST
+            );
+
+        });
         return view;
+    }
+    @Override
+    public void onActivityResult(int requestCode,
+                                 int resultCode,
+                                 Intent data) {
+
+        super.onActivityResult(
+                requestCode,
+                resultCode,
+                data
+        );
+
+        if (requestCode == PICK_IMAGE_REQUEST
+                && resultCode == getActivity().RESULT_OK
+                && data != null
+                && data.getData() != null) {
+
+            Uri imageUri = data.getData();
+
+            imgProfile.setImageURI(imageUri);
+        }
     }
 }
