@@ -19,6 +19,7 @@ import com.example.a1220458_1220014_courseproject.fragments.FavoritesFragment;
 import com.example.a1220458_1220014_courseproject.fragments.SpecialFragment;
 
 import com.example.a1220458_1220014_courseproject.fragments.ProfileFragment;
+import com.example.a1220458_1220014_courseproject.fragments.ContactUsFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -87,6 +88,12 @@ public class HomeActivity extends AppCompatActivity {
             else if(id == R.id.profile){
 
                 loadFragment(new ProfileFragment());
+
+            }
+
+            else if(id == R.id.contactUs){
+
+                loadFragment(new ContactUsFragment());
 
             }
 

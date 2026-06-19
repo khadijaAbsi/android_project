@@ -34,7 +34,7 @@
 
 
     <item
-        android:id="@+id/contact"
+        android:id="@+id/contactUs"
         android:title="Contact Us"/>
 
 
