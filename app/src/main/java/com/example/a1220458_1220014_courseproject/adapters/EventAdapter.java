@@ -19,12 +19,10 @@ import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.fragments.EventDetailsFragment;
 import com.example.a1220458_1220014_courseproject.fragments.ReservationFormFragment;
 import com.example.a1220458_1220014_courseproject.models.Event;
-import com.example.a1220458_1220014_courseproject.utils.FavoriteManager;
-import com.example.a1220458_1220014_courseproject.utils.ReservationManager;
 
 
 import java.util.ArrayList;
-
+import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
@@ -158,14 +156,68 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.favorite.setOnClickListener(v -> {
 
 
-            FavoriteManager.addFavorite(event);
+            DatabaseHelper db =
+                    new DatabaseHelper(
+                            v.getContext()
+                    );
 
 
-            Toast.makeText(
-                    v.getContext(),
-                    "Added to Favorites",
-                    Toast.LENGTH_SHORT
-            ).show();
+            boolean added =
+                    db.insertFavorite(
+                            1,
+                            event.getId()
+                    );
+
+
+
+            if(added){
+
+
+                Toast.makeText(
+                        v.getContext(),
+                        "Added to Favorites",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+
+            }else{
+
+
+                Toast.makeText(
+                        v.getContext(),
+                        "Already in Favorites",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+                if(db.isFavorite(1, event.getId())){
+
+
+                    Toast.makeText(
+                            v.getContext(),
+                            "Already in Favorites",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+
+
+                }else{
+
+
+                    db.insertFavorite(
+                            1,
+                            event.getId()
+                    );
+
+
+                    Toast.makeText(
+                            v.getContext(),
+                            "Added to Favorites",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+
+                }
+            }
 
 
         });

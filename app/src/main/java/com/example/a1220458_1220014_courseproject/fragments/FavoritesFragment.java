@@ -1,6 +1,7 @@
 package com.example.a1220458_1220014_courseproject.fragments;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,16 +15,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.a1220458_1220014_courseproject.R;
-import com.example.a1220458_1220014_courseproject.adapters.EventAdapter;
-import com.example.a1220458_1220014_courseproject.utils.FavoriteManager;
+import com.example.a1220458_1220014_courseproject.adapters.FavoriteAdapter;
+import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
+import com.example.a1220458_1220014_courseproject.models.Event;
+
+
+import java.util.ArrayList;
 
 
 
 public class FavoritesFragment extends Fragment {
 
 
-
     RecyclerView recyclerView;
+
+    DatabaseHelper databaseHelper;
+
+
+    ArrayList<Event> favorites;
 
 
 
@@ -34,7 +43,6 @@ public class FavoritesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-
         View view = inflater.inflate(
                 R.layout.fragment_favorites,
                 container,
@@ -43,7 +51,8 @@ public class FavoritesFragment extends Fragment {
 
 
         recyclerView =
-                view.findViewById(R.id.favoritesRecyclerView);
+                view.findViewById(
+                        R.id.favoritesRecyclerView);
 
 
 
@@ -52,10 +61,77 @@ public class FavoritesFragment extends Fragment {
 
 
 
-        EventAdapter adapter =
-                new EventAdapter(
-                        FavoriteManager.getFavorites()
-                );
+        databaseHelper =
+                new DatabaseHelper(getContext());
+
+
+
+        favorites =
+                new ArrayList<>();
+
+
+
+        Cursor cursor =
+                databaseHelper.getFavorites(1);
+
+
+
+        while(cursor.moveToNext()){
+
+
+            favorites.add(
+
+                    new Event(
+
+                            cursor.getInt(
+                                    cursor.getColumnIndexOrThrow("id")
+                            ),
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("title")
+                            ),
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("description")
+                            ),
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("category")
+                            ),
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("date")
+                            ),
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("time")
+                            ),
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("location")
+                            ),
+
+                            cursor.getInt(
+                                    cursor.getColumnIndexOrThrow("seats")
+                            ),
+
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("image")
+                            )
+
+                    )
+            );
+
+        }
+
+
+        cursor.close();
+
+
+
+        FavoriteAdapter adapter =
+                new FavoriteAdapter(favorites);
+
 
 
         recyclerView.setAdapter(adapter);
