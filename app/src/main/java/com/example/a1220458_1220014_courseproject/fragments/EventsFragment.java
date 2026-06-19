@@ -92,6 +92,7 @@ public class EventsFragment extends Fragment {
 
         Cursor cursor =
                 databaseHelper.getAllEvents();
+        System.out.println("DB COUNT = " + cursor.getCount());
 
 
 

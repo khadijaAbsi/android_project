@@ -6,10 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.a1220458_1220014_courseproject.models.Event;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "events_app.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -58,48 +60,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         ");";
 
         db.execSQL(CREATE_EVENTS_TABLE);
-        ContentValues event1 = new ContentValues();
-
-        event1.put("title", "Android Development Workshop");
-        event1.put("description", "Learn Android Studio and Java");
-        event1.put("category", "Technology");
-        event1.put("date", "2026-07-01");
-        event1.put("time", "10:00 AM");
-        event1.put("location", "Engineering Building");
-        event1.put("seats", 120);
-        event1.put("image", "");
-
-        db.insert("events", null, event1);
 
 
-
-        ContentValues event2 = new ContentValues();
-
-        event2.put("title", "AI Competition");
-        event2.put("description", "Artificial Intelligence Challenge");
-        event2.put("category", "Competition");
-        event2.put("date", "2026-07-15");
-        event2.put("time", "9:00 AM");
-        event2.put("location", "Birzeit University");
-        event2.put("seats", 300);
-        event2.put("image", "");
-
-        db.insert("events", null, event2);
-
-
-
-        ContentValues event3 = new ContentValues();
-
-        event3.put("title", "Career Day");
-        event3.put("description", "Meet companies and recruiters");
-        event3.put("category", "Career");
-        event3.put("date", "2026-08-05");
-        event3.put("time", "11:00 AM");
-        event3.put("location", "Main Hall");
-        event3.put("seats", 200);
-        event3.put("image", "");
-
-        db.insert("events", null, event3);
         // Favorites Table
         String CREATE_FAVORITES_TABLE =
                 "CREATE TABLE favorites (" +
@@ -122,23 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         ");";
 
         db.execSQL(CREATE_RESERVATIONS_TABLE);
-        ContentValues values = new ContentValues();
 
-        values.put("title","AI Workshop");
-        values.put("description","Introduction to AI");
-        values.put("category","Technology");
-        values.put("date","2026-06-10");
-        values.put("time","10:00 AM");
-        values.put("location","Engineering Hall");
-        values.put("seats",80);
-        values.put("image","");
-
-
-        db.insert(
-                "events",
-                null,
-                values
-        );
         // Default Admin
         db.execSQL(
                 "INSERT INTO admins(email,password) VALUES('admin@admin.com','Admin123!')"
@@ -314,29 +260,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
 
     }
-    public boolean insertEvent(String title,
-                               String description,
-                               String category,
-                               String date,
-                               String time,
-                               String location,
-                               int seats,
-                               String image){
-
-        SQLiteDatabase db = this.getWritableDatabase();
+    public void insertEvent(Event event){
 
 
-        ContentValues values = new ContentValues();
+        SQLiteDatabase db =
+                this.getWritableDatabase();
 
 
-        values.put("title", title);
-        values.put("description", description);
-        values.put("category", category);
-        values.put("date", date);
-        values.put("time", time);
-        values.put("location", location);
-        values.put("seats", seats);
-        values.put("image", image);
+        ContentValues values =
+                new ContentValues();
+
+
+        values.put("title", event.getTitle());
+
+        values.put("description", event.getDescription());
+
+        values.put("category", event.getCategory());
+
+        values.put("date", event.getDate());
+
+        values.put("time", event.getTime());
+
+        values.put("location", event.getLocation());
+
+        values.put("seats", event.getSeats());
+
+        values.put("image", event.getImage());
+
 
 
         long result =
@@ -347,7 +297,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 );
 
 
-        return result != -1;
+        System.out.println("INSERT RESULT = " + result);
+
 
     }
 

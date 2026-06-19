@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.a1220458_1220014_courseproject.network.ConnectionAsyncTask;
 import com.example.a1220458_1220014_courseproject.R;
 
 public class IntroductionActivity extends AppCompatActivity {
@@ -20,16 +20,12 @@ public class IntroductionActivity extends AppCompatActivity {
         btnConnect = findViewById(R.id.btnConnect);
         btnHome = findViewById(R.id.btnHome);
 
-        // Connect -> LoginActivity
         btnConnect.setOnClickListener(v -> {
 
-            Intent intent =
-                    new Intent(
-                            IntroductionActivity.this,
-                            LoginActivity.class);
 
-            startActivity(intent);
-
+            new ConnectionAsyncTask(this)
+                    .execute("https://mocki.io/v1/76e0c2f6-0253-4272-b3e0-8158b474c372"
+                    );
         });
 
         // Go To Main -> HomeActivity
@@ -43,5 +39,19 @@ public class IntroductionActivity extends AppCompatActivity {
             startActivity(intent);
 
         });
+    }
+    public void openHome(){
+
+
+        Intent intent =
+                new Intent(
+                        IntroductionActivity.this,
+                        HomeActivity.class
+                );
+
+
+        startActivity(intent);
+
+
     }
 }
