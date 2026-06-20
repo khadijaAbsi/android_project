@@ -23,7 +23,10 @@ import com.example.a1220458_1220014_courseproject.models.Event;
 
 import java.util.ArrayList;
 import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
-
+import android.content.SharedPreferences;
+import android.content.Context;
+import android.content.Intent;
+import com.example.a1220458_1220014_courseproject.activities.LoginActivity;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
@@ -88,6 +91,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
             bundle.putString("title", event.getTitle());
+            bundle.putInt(
+                    "eventId",
+                    event.getId()
+            );
 
             bundle.putString("description", event.getDescription());
 
@@ -113,9 +120,35 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         });
 
 
-
-
         holder.reserve.setOnClickListener(v -> {
+
+            SharedPreferences prefs =
+                    v.getContext().getSharedPreferences(
+                            "LoginPrefs",
+                            Context.MODE_PRIVATE
+                    );
+
+
+            int userId =
+                    prefs.getInt(
+                            "user_id",
+                            -1
+                    );
+
+
+            if(userId == -1){
+
+                Intent intent =
+                        new Intent(
+                                v.getContext(),
+                                LoginActivity.class
+                        );
+
+                v.getContext().startActivity(intent);
+
+                return;
+
+            }
 
 
             ReservationFormFragment fragment =
@@ -154,17 +187,41 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
         holder.favorite.setOnClickListener(v -> {
+            SharedPreferences prefs =
+                    v.getContext().getSharedPreferences(
+                            "LoginPrefs",
+                            Context.MODE_PRIVATE
+                    );
+
+
+            int userId =
+                    prefs.getInt(
+                            "user_id",
+                            -1
+                    );
 
 
             DatabaseHelper db =
                     new DatabaseHelper(
                             v.getContext()
                     );
+            if(userId == -1){
 
+                Intent intent =
+                        new Intent(
+                                v.getContext(),
+                                LoginActivity.class
+                        );
+
+                v.getContext().startActivity(intent);
+
+                return;
+
+            }
 
             boolean added =
                     db.insertFavorite(
-                            1,
+                            userId,
                             event.getId()
                     );
 
@@ -189,7 +246,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                         Toast.LENGTH_SHORT
                 ).show();
 
-                if(db.isFavorite(1, event.getId())){
+               /* if(db.isFavorite(1, event.getId())){
 
 
                     Toast.makeText(
@@ -216,7 +273,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     ).show();
 
 
-                }
+                }*/
             }
 
 

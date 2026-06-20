@@ -1,6 +1,8 @@
 package com.example.a1220458_1220014_courseproject.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -29,7 +31,7 @@ public class ReservationsFragment extends Fragment {
 
 
     RecyclerView recyclerView;
-
+    int userId;
     ArrayList<String> reservations;
 
     ReservationAdapter adapter;
@@ -65,6 +67,20 @@ public class ReservationsFragment extends Fragment {
 
         databaseHelper =
                 new DatabaseHelper(getContext());
+        SharedPreferences prefs =
+                getActivity().getSharedPreferences(
+                        "LoginPrefs",
+                        Context.MODE_PRIVATE
+                );
+
+        String email =
+                prefs.getString(
+                        "current_user_email",
+                        ""
+                );
+
+        userId =
+                databaseHelper.getUserId(email);
 
 
 
@@ -72,9 +88,8 @@ public class ReservationsFragment extends Fragment {
                 new ArrayList<>();
 
 
-
         Cursor cursor =
-                databaseHelper.getReservations();
+                databaseHelper.getUserReservations(userId);
 
 
 

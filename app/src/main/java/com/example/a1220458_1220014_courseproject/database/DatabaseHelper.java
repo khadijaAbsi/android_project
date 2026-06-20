@@ -435,4 +435,144 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exists;
 
     }
+    public void clearEvents(){
+
+
+        SQLiteDatabase db =
+                this.getWritableDatabase();
+
+
+        db.delete(
+                "events",
+                null,
+                null
+        );
+
+
+    }
+    public int getEventSeats(int eventId){
+
+        SQLiteDatabase db =
+                this.getReadableDatabase();
+
+        Cursor cursor =
+                db.rawQuery(
+                        "SELECT seats FROM events WHERE id=?",
+                        new String[]{
+                                String.valueOf(eventId)
+                        });
+
+        int seats = 0;
+
+        if(cursor.moveToFirst()){
+
+            seats =
+                    cursor.getInt(
+                            cursor.getColumnIndexOrThrow("seats")
+                    );
+
+        }
+
+        cursor.close();
+
+        return seats;
+
+    }
+    public void updateSeats(
+            int eventId,
+            int newSeats){
+
+        SQLiteDatabase db =
+                this.getWritableDatabase();
+
+        ContentValues values =
+                new ContentValues();
+
+        values.put(
+                "seats",
+                newSeats
+        );
+
+        db.update(
+                "events",
+                values,
+                "id=?",
+                new String[]{
+                        String.valueOf(eventId)
+                });
+
+    }
+    public int getReservedSeats(int eventId){
+
+        SQLiteDatabase db =
+                this.getReadableDatabase();
+
+        Cursor cursor =
+                db.rawQuery(
+                        "SELECT SUM(quantity) FROM reservations WHERE event_id=?",
+                        new String[]{
+                                String.valueOf(eventId)
+                        });
+
+        int reserved = 0;
+
+        if(cursor.moveToFirst()){
+
+            reserved =
+                    cursor.isNull(0)
+                            ? 0
+                            : cursor.getInt(0);
+
+        }
+
+        cursor.close();
+
+        return reserved;
+
+    }
+    public int getUserId(String email){
+
+        SQLiteDatabase db =
+                this.getReadableDatabase();
+
+
+        Cursor cursor =
+                db.rawQuery(
+                        "SELECT id FROM users WHERE email=?",
+                        new String[]{email}
+                );
+
+
+        int id = -1;
+
+
+        if(cursor.moveToFirst()){
+
+            id = cursor.getInt(0);
+
+        }
+
+
+        cursor.close();
+
+
+        return id;
+
+    }
+    public Cursor getUserReservations(int userId){
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        return db.rawQuery(
+                "SELECT events.title, reservations.quantity, reservations.reservation_type, reservations.status " +
+                        "FROM reservations " +
+                        "INNER JOIN events ON reservations.event_id = events.id " +
+                        "WHERE reservations.user_id = ?",
+                new String[]{
+                        String.valueOf(userId)
+                }
+        );
+
+    }
+
 }

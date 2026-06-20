@@ -13,11 +13,14 @@ import androidx.fragment.app.Fragment;
 
 
 import com.example.a1220458_1220014_courseproject.R;
-
+import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 
 
 public class EventDetailsFragment extends Fragment {
-
+    TextView availableSeats;
+    TextView reservedSeats;
+    DatabaseHelper databaseHelper;
+    int eventId;
 
     TextView title;
     TextView description;
@@ -38,7 +41,14 @@ public class EventDetailsFragment extends Fragment {
                 R.layout.fragment_event_details,
                 container,
                 false);
+        availableSeats =
+                view.findViewById(R.id.availableSeats);
 
+        reservedSeats =
+                view.findViewById(R.id.reservedSeats);
+
+        databaseHelper =
+                new DatabaseHelper(getContext());
 
 
         title = view.findViewById(R.id.detailTitle);
@@ -54,6 +64,9 @@ public class EventDetailsFragment extends Fragment {
 
         if(bundle != null){
 
+            eventId =
+                    bundle.getInt("eventId");
+
             title.setText(bundle.getString("title"));
 
             description.setText(bundle.getString("description"));
@@ -63,6 +76,24 @@ public class EventDetailsFragment extends Fragment {
             date.setText(bundle.getString("date"));
 
             location.setText(bundle.getString("location"));
+
+
+            int available =
+                    databaseHelper.getEventSeats(eventId);
+
+
+            int reserved =
+                    databaseHelper.getReservedSeats(eventId);
+
+
+            availableSeats.setText(
+                    "Available Seats: " + available
+            );
+
+
+            reservedSeats.setText(
+                    "Reserved Seats: " + reserved
+            );
 
         }
 

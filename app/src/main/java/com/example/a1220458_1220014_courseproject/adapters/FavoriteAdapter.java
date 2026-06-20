@@ -18,9 +18,12 @@ import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.fragments.EventDetailsFragment;
 import com.example.a1220458_1220014_courseproject.fragments.ReservationFormFragment;
 import com.example.a1220458_1220014_courseproject.models.Event;
-
+import android.content.Intent;
+import com.example.a1220458_1220014_courseproject.activities.LoginActivity;
 
 import java.util.ArrayList;
+import android.content.SharedPreferences;
+import android.content.Context;
 
 
 
@@ -49,6 +52,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         View view =
                 LayoutInflater.from(parent.getContext())
                         .inflate(
+
                                 R.layout.item_favorite,
                                 parent,
                                 false);
@@ -72,6 +76,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
 
 
+
         holder.title.setText(event.getTitle());
 
         holder.category.setText(event.getCategory());
@@ -89,6 +94,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
 
             bundle.putString("title", event.getTitle());
+            bundle.putInt(
+                    "eventId",
+                    event.getId()
+            );
 
             bundle.putString("description", event.getDescription());
 
@@ -116,6 +125,18 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
 
         holder.remove.setOnClickListener(v -> {
+            SharedPreferences prefs =
+                    v.getContext().getSharedPreferences(
+                            "LoginPrefs",
+                            Context.MODE_PRIVATE
+                    );
+
+
+            int userId =
+                    prefs.getInt(
+                            "user_id",
+                            -1
+                    );
 
 
             DatabaseHelper db =
@@ -123,9 +144,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                             v.getContext()
                     );
 
-
             db.deleteFavorite(
-                    1,
+                    userId,
                     event.getId()
             );
 
@@ -144,6 +164,34 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
         });
         holder.reserve.setOnClickListener(v -> {
+
+            SharedPreferences prefs =
+                    v.getContext().getSharedPreferences(
+                            "LoginPrefs",
+                            Context.MODE_PRIVATE
+                    );
+
+
+            int userId =
+                    prefs.getInt(
+                            "user_id",
+                            -1
+                    );
+
+
+            if(userId == -1){
+
+                Intent intent =
+                        new Intent(
+                                v.getContext(),
+                                LoginActivity.class
+                        );
+
+                v.getContext().startActivity(intent);
+
+                return;
+
+            }
 
 
             ReservationFormFragment fragment =

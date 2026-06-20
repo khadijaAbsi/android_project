@@ -21,7 +21,8 @@ import com.example.a1220458_1220014_courseproject.models.Event;
 
 
 import java.util.ArrayList;
-
+import android.content.SharedPreferences;
+import android.content.Context;
 
 
 public class FavoritesFragment extends Fragment {
@@ -71,9 +72,22 @@ public class FavoritesFragment extends Fragment {
 
 
 
-        Cursor cursor =
-                databaseHelper.getFavorites(1);
+        SharedPreferences prefs =
+                requireContext().getSharedPreferences(
+                        "LoginPrefs",
+                        Context.MODE_PRIVATE
+                );
 
+
+        int userId =
+                prefs.getInt(
+                        "user_id",
+                        -1
+                );
+
+
+        Cursor cursor =
+                databaseHelper.getFavorites(userId);
 
 
         while(cursor.moveToNext()){

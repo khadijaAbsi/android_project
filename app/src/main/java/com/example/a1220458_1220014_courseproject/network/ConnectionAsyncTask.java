@@ -49,10 +49,43 @@ public class ConnectionAsyncTask
     protected void onPostExecute(String s){
 
 
+        if(s == null){
+
+            android.widget.Toast.makeText(
+                    activity,
+                    "Failed to connect to server",
+                    android.widget.Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+
+        }
+
+
+
         ArrayList<Event> events =
                 EventJsonParser.getObjectFromJson(s);
+
+
+
+        if(events == null || events.size() == 0){
+
+            android.widget.Toast.makeText(
+                    activity,
+                    "No events found",
+                    android.widget.Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+
+        }
+
+
+
         System.out.println(s);
+
         System.out.println("EVENTS SIZE = " + events.size());
+
 
 
         DatabaseHelper db =
@@ -60,11 +93,13 @@ public class ConnectionAsyncTask
 
 
 
+        db.clearEvents();
+
+
+
         for(Event e : events){
 
-
             db.insertEvent(e);
-
 
         }
 

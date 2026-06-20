@@ -1,6 +1,8 @@
 package com.example.a1220458_1220014_courseproject.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,7 +102,18 @@ public class ReservationFormFragment extends Fragment {
 
         confirmButton.setOnClickListener(v -> {
 
+            SharedPreferences prefs =
+                    getContext().getSharedPreferences(
+                            "LoginPrefs",
+                            Context.MODE_PRIVATE
+                    );
 
+
+            int userId =
+                    prefs.getInt(
+                            "user_id",
+                            -1
+                    );
 
             String count =
                     quantity.getText().toString();
@@ -127,13 +140,42 @@ public class ReservationFormFragment extends Fragment {
 
             }else{
 
+                int quantityValue =
+                        Integer.parseInt(
+                                quantity.getText().toString()
+                        );
 
+                int availableSeats =
+                        databaseHelper.getEventSeats(
+                                eventId
+                        );
+                if(quantityValue > availableSeats){
+                    Toast.makeText(
+                            getContext(),
+                            "Not enough seats available",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                    return;
+
+                }
+                if(quantityValue <= 0){
+
+                    Toast.makeText(
+                            getContext(),
+                            "Invalid quantity",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                    return;
+
+                }
 
                 boolean saved =
                         databaseHelper.insertReservation(
-                                1,
+                                userId,
                                 eventId,
-                                Integer.parseInt(count),
+                                quantityValue,
                                 type,
                                 "Confirmed"
                         );
@@ -151,7 +193,10 @@ public class ReservationFormFragment extends Fragment {
                             Toast.LENGTH_SHORT
                     ).show();
 
-
+                    databaseHelper.updateSeats(
+                            eventId,
+                            availableSeats - quantityValue
+                    );
                 }else{
 
 

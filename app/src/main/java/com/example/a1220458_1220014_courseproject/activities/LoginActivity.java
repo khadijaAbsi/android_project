@@ -103,16 +103,44 @@ public class LoginActivity extends AppCompatActivity {
             // User Login
             if (databaseHelper.checkUser(email, password)) {
 
+
+                int userId =
+                        databaseHelper.getUserId(email);
+
+
                 SharedPreferences.Editor editor =
                         sharedPreferences.edit();
 
+
+                editor.putInt(
+                        "user_id",
+                        userId
+                );
+
+
                 if (cbRememberMe.isChecked()) {
-                    editor.putString("email", email);
-                    editor.putBoolean("remember", true);
-                    editor.putString("current_user_email", email);
+
+                    editor.putString(
+                            "email",
+                            email
+                    );
+
+                    editor.putBoolean(
+                            "remember",
+                            true
+                    );
+
+                    editor.putString(
+                            "current_user_email",
+                            email
+                    );
+
                 } else {
+
                     editor.clear();
+
                 }
+
 
                 editor.apply();
 

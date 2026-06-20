@@ -20,6 +20,7 @@ import com.example.a1220458_1220014_courseproject.models.Event;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class EventsFragment extends Fragment {
     DatabaseHelper databaseHelper;
 
     RecyclerView recyclerView;
-
+    TextView emptyText;
 
     ArrayList<Event> allEvents;
 
@@ -58,12 +59,14 @@ public class EventsFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
         View view = inflater.inflate(
                 R.layout.fragment_events,
                 container,
                 false);
+
+
+        emptyText =
+                view.findViewById(R.id.emptyText);
 
 
 
@@ -317,6 +320,15 @@ public class EventsFragment extends Fragment {
 
 
         adapter.updateList(filteredList);
+        if(filteredList.isEmpty()){
+
+            emptyText.setVisibility(View.VISIBLE);
+
+        }else{
+
+            emptyText.setVisibility(View.GONE);
+
+        }
 
 
 
