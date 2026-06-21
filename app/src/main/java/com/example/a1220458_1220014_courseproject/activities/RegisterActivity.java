@@ -144,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity {
         );
 
         if (inserted) {
-            databaseHelper.checkUsers();
+
 
 
             Toast.makeText(
