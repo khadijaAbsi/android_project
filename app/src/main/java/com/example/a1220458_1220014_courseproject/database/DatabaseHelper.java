@@ -628,5 +628,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return result > 0;
     }
+    public void checkUsers(){
 
+        Cursor cursor =
+                getReadableDatabase()
+                        .rawQuery(
+                                "SELECT * FROM users",
+                                null
+                        );
+
+
+        System.out.println("USERS COUNT = " + cursor.getCount());
+
+
+        while(cursor.moveToNext()){
+
+            System.out.println(
+                    "Email: " +
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("email")
+                            )
+            );
+
+            System.out.println(
+                    "Name: " +
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("first_name")
+                            )
+            );
+
+        }
+
+
+        cursor.close();
+
+    }
 }
