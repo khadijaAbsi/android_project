@@ -2,11 +2,12 @@ package com.example.a1220458_1220014_courseproject.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
@@ -15,13 +16,19 @@ import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 
 import java.util.ArrayList;
 
-public class ViewUsersFragment extends Fragment {
+public class DeleteUsersFragment extends Fragment {
 
-    ListView listUsers;
+    ListView listDeleteUsers;
 
     DatabaseHelper databaseHelper;
 
-    public ViewUsersFragment() {
+    ArrayList<Integer> userIds =
+            new ArrayList<>();
+
+    ArrayList<String> users =
+            new ArrayList<>();
+
+    public DeleteUsersFragment() {
     }
 
     @Override
@@ -31,53 +38,71 @@ public class ViewUsersFragment extends Fragment {
 
         View view =
                 inflater.inflate(
-                        R.layout.fragment_view_users,
+                        R.layout.fragment_delete_users,
                         container,
                         false
                 );
 
-        listUsers =
-                view.findViewById(R.id.listUsers);
+        listDeleteUsers =
+                view.findViewById(R.id.listDeleteUsers);
 
         databaseHelper =
                 new DatabaseHelper(requireContext());
 
-        ArrayList<String> users =
-                new ArrayList<>();
+        loadUsers();
+
+        listDeleteUsers.setOnItemClickListener(
+                (parent, view1, position, id) -> {
+
+                    int userId =
+                            userIds.get(position);
+
+                    boolean deleted =
+                            databaseHelper.deleteUser(
+                                    userId
+                            );
+
+                    if(deleted){
+
+                        Toast.makeText(
+                                requireContext(),
+                                "User Deleted",
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+                        loadUsers();
+                    }
+                });
+
+        return view;
+    }
+
+    private void loadUsers(){
+
+        users.clear();
+        userIds.clear();
 
         Cursor cursor =
                 databaseHelper.getAllUsers();
-        System.out.println(
-                "USERS COUNT = " +
-                        cursor.getCount()
-        );
 
         while(cursor.moveToNext()){
 
-            String user =
+            userIds.add(
+                    cursor.getInt(
+                            cursor.getColumnIndexOrThrow("id")
+                    )
+            );
 
+            users.add(
                     cursor.getString(
                             cursor.getColumnIndexOrThrow("first_name")
                     )
-
                             + " "
-
                             +
-
                             cursor.getString(
                                     cursor.getColumnIndexOrThrow("last_name")
                             )
-
-                            + "\n"
-
-                            +
-
-                            cursor.getString(
-                                    cursor.getColumnIndexOrThrow("email")
-                            );
-
-            users.add(user);
-
+            );
         }
 
         cursor.close();
@@ -89,8 +114,6 @@ public class ViewUsersFragment extends Fragment {
                         users
                 );
 
-        listUsers.setAdapter(adapter);
-
-        return view;
+        listDeleteUsers.setAdapter(adapter);
     }
 }
