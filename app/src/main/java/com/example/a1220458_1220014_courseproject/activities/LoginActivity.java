@@ -13,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class LoginActivity extends AppCompatActivity {
 
     Button btnLogin, btnRegister;
@@ -92,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(
                         new Intent(
                                 LoginActivity.this,
-                                HomeActivity.class
+                                AdminActivity.class
                         )
                 );
 
