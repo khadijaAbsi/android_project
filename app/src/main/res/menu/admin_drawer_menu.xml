@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/addAdmin"
+        android:title="Add Admin"/>
+
+    <item
+        android:id="@+id/viewUsers"
+        android:title="View Users"/>
+
+    <item
+        android:id="@+id/deleteUsers"
+        android:title="Delete Users"/>
+
+    <item
+        android:id="@+id/addEvent"
+        android:title="Add Event"/>
+
+    <item
+        android:id="@+id/editEvent"
+        android:title="Edit Event"/>
+
+    <item
+        android:id="@+id/deleteEvent"
+        android:title="Delete Event"/>
+
+    <item
+        android:id="@+id/viewReservations"
+        android:title="View Reservations"/>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"/>
+
+</menu>
