@@ -1,66 +1,119 @@
 package com.example.a1220458_1220014_courseproject.fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.a1220458_1220014_courseproject.R;
+import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DeleteUsersFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.a1220458_1220014_courseproject.R;
+import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
+
+import java.util.ArrayList;
+
 public class DeleteUsersFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ListView listDeleteUsers;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    DatabaseHelper databaseHelper;
+
+    ArrayList<Integer> userIds =
+            new ArrayList<>();
+
+    ArrayList<String> users =
+            new ArrayList<>();
 
     public DeleteUsersFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DeleteUsersFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DeleteUsersFragment newInstance(String param1, String param2) {
-        DeleteUsersFragment fragment = new DeleteUsersFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_delete_users, container, false);
+
+        View view =
+                inflater.inflate(
+                        R.layout.fragment_delete_users,
+                        container,
+                        false
+                );
+
+        listDeleteUsers =
+                view.findViewById(R.id.listDeleteUsers);
+
+        databaseHelper =
+                new DatabaseHelper(requireContext());
+
+        loadUsers();
+
+        listDeleteUsers.setOnItemClickListener(
+                (parent, view1, position, id) -> {
+
+                    int userId =
+                            userIds.get(position);
+
+                    boolean deleted =
+                            databaseHelper.deleteUser(
+                                    userId
+                            );
+
+                    if(deleted){
+
+                        Toast.makeText(
+                                requireContext(),
+                                "User Deleted",
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+                        loadUsers();
+                    }
+                });
+
+        return view;
+    }
+
+    private void loadUsers(){
+
+        users.clear();
+        userIds.clear();
+
+        Cursor cursor =
+                databaseHelper.getAllUsers();
+
+        while(cursor.moveToNext()){
+
+            userIds.add(
+                    cursor.getInt(
+                            cursor.getColumnIndexOrThrow("id")
+                    )
+            );
+
+            users.add(
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow("first_name")
+                    )
+                            + " "
+                            +
+                            cursor.getString(
+                                    cursor.getColumnIndexOrThrow("last_name")
+                            )
+            );
+        }
+
+        cursor.close();
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        requireContext(),
+                        android.R.layout.simple_list_item_1,
+                        users
+                );
+
+        listDeleteUsers.setAdapter(adapter);
     }
 }
