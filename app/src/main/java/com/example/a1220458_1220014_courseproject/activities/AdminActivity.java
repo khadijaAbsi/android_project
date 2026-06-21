@@ -15,10 +15,12 @@ import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.fragments.AddAdminFragment;
 import com.example.a1220458_1220014_courseproject.fragments.AddEventFragment;
 import com.example.a1220458_1220014_courseproject.fragments.AdminDeleteEventFragment;
+import com.example.a1220458_1220014_courseproject.fragments.DeleteUsersFragment;
 import com.example.a1220458_1220014_courseproject.fragments.HomeFragment;
 import com.example.a1220458_1220014_courseproject.fragments.AdminReservationsFragment;
-
 import com.example.a1220458_1220014_courseproject.fragments.AdminEditEventFragment;
+import com.example.a1220458_1220014_courseproject.fragments.ViewUsersFragment;
+
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -42,7 +44,6 @@ public class AdminActivity extends AppCompatActivity {
 
 
 
-
         drawerLayout =
                 findViewById(R.id.drawerLayout);
 
@@ -52,65 +53,57 @@ public class AdminActivity extends AppCompatActivity {
 
 
 
-
-
         getSupportFragmentManager()
-
                 .beginTransaction()
-
                 .replace(
                         R.id.fragmentContainer,
                         new HomeFragment()
                 )
-
                 .commit();
-
-
-
-
 
 
 
         navigationView.setNavigationItemSelectedListener(item -> {
 
 
-
-            int id =
-                    item.getItemId();
-
-
-
+            int id = item.getItemId();
 
 
 
             if(id == R.id.addAdmin){
 
-
                 loadFragment(
                         new AddAdminFragment()
                 );
 
+            }
+
+
+            else if(id == R.id.viewUsers){
+
+                loadFragment(
+                        new ViewUsersFragment()
+                );
 
             }
 
 
+            else if(id == R.id.deleteUsers){
 
+                loadFragment(
+                        new DeleteUsersFragment()
+                );
 
+            }
 
 
             else if(id == R.id.addEvent){
-
 
                 loadFragment(
                         new AddEventFragment()
                 );
 
-
             }
-
-
-
-
 
 
             else if(id == R.id.editEvent){
@@ -122,10 +115,6 @@ public class AdminActivity extends AppCompatActivity {
             }
 
 
-
-
-
-
             else if(id == R.id.deleteEvent){
 
                 loadFragment(
@@ -135,61 +124,33 @@ public class AdminActivity extends AppCompatActivity {
             }
 
 
-
-
-
-
-
-
-
-
-            // View all reservations
-
             else if(id == R.id.viewReservations){
-
 
                 loadFragment(
                         new AdminReservationsFragment()
                 );
 
-
             }
 
-
-
-
-
-
-
-            // Logout admin
 
             else if(id == R.id.logout){
 
 
-
                 startActivity(
-
                         new Intent(
                                 AdminActivity.this,
                                 LoginActivity.class
                         )
-
                 );
 
 
-
                 finish();
-
 
             }
 
 
 
-
-
-
             drawerLayout.closeDrawers();
-
 
 
             return true;
@@ -205,11 +166,7 @@ public class AdminActivity extends AppCompatActivity {
 
 
 
-
-
-
     private void loadFragment(Fragment fragment){
-
 
 
         getSupportFragmentManager()
