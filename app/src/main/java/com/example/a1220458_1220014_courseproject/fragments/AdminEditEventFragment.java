@@ -76,6 +76,7 @@ public class AdminEditEventFragment extends Fragment {
 
 
     private void loadEvents(){
+        list.clear();
 
 
         Cursor cursor =
