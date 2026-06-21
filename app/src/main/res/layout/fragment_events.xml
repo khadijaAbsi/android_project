@@ -1,43 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
 
-    android:layout_height="match_parent"
-
-    android:orientation="vertical"
-
-    android:padding="16dp"
-
-    android:paddingTop="60dp">
+    android:layout_height="match_parent">
 
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search events..." />
-    <Spinner
-        android:id="@+id/categorySpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"/>
-    <TextView
-        android:id="@+id/emptyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No events found"
-        android:visibility="gone"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-
-        android:id="@+id/eventsRecyclerView"
+    <ImageView
 
         android:layout_width="match_parent"
 
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+
+        android:src="@drawable/background"
+
+        android:scaleType="centerCrop"
+
+        android:alpha="0.75"/>
 
 
-</LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+
+        android:orientation="vertical"
+
+        android:padding="16dp"
+
+        android:paddingTop="60dp">
+
+
+
+        <SearchView
+
+            android:id="@+id/searchView"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:iconifiedByDefault="false"
+
+            android:queryHint="Search events..." />
+
+
+
+        <Spinner
+
+            android:id="@+id/categorySpinner"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"/>
+
+
+
+        <TextView
+
+            android:id="@+id/emptyText"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:text="No events found"
+
+            android:textSize="18sp"
+
+            android:textColor="@color/green_dark"
+
+            android:layout_gravity="center"
+
+            android:visibility="gone"/>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/eventsRecyclerView"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+
+            android:layout_marginTop="15dp"/>
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

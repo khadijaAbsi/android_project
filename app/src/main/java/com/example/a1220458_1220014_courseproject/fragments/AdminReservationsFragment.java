@@ -51,12 +51,10 @@ public class AdminReservationsFragment extends Fragment {
                 );
 
 
-
         recyclerView =
                 view.findViewById(
-                        R.id.adminReservationsRecyclerView
+                        R.id.reservationsRecyclerView
                 );
-
 
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(getContext())
