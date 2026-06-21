@@ -1,5 +1,5 @@
 package com.example.a1220458_1220014_courseproject.adapters;
-
+import com.example.a1220458_1220014_courseproject.models.Reservation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.a1220458_1220014_courseproject.R;
 
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 
 
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.ViewHolder> {
 
 
 
-    ArrayList<String> reservations;
+    ArrayList<Reservation> reservations;
 
 
-
-    public ReservationAdapter(ArrayList<String> reservations){
+    public ReservationAdapter(ArrayList<Reservation> reservations){
 
         this.reservations = reservations;
 
@@ -62,8 +61,19 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
             int position) {
 
 
+        Reservation reservation =
+                reservations.get(position);
+
+
         holder.text.setText(
-                reservations.get(position)
+                "Event: " + reservation.getTitle()
+                        + "\nQuantity: " + reservation.getQuantity()
+                        + "\nType: " + reservation.getType()
+                        + "\nStatus: " + reservation.getStatus()
+        );
+
+        holder.date.setText(
+                "Date: " + reservation.getDate()
         );
 
 
@@ -86,7 +96,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
 
         TextView text;
-
+        TextView date;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -96,6 +106,8 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
             text =
                     itemView.findViewById(R.id.reservationInfo);
+            date =
+                    itemView.findViewById(R.id.reservationDate);
 
         }
 

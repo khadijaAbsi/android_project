@@ -46,6 +46,12 @@
             android:textColor="@color/green_dark"
 
             android:gravity="center"/>
+        <TextView
+            android:id="@+id/reservationDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/green"/>
 
 
 

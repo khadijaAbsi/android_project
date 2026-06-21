@@ -11,7 +11,7 @@ import com.example.a1220458_1220014_courseproject.models.Event;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "events_app.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -80,7 +80,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         "event_id INTEGER," +
                         "quantity INTEGER," +
                         "reservation_type TEXT," +
-                        "status TEXT" +
+                        "status TEXT," +
+                        "reservation_date TEXT" +
                         ");";
 
         db.execSQL(CREATE_RESERVATIONS_TABLE);
@@ -215,25 +216,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                      int eventId,
                                      int quantity,
                                      String reservationType,
-                                     String status) {
+                                     String status,
+                                     String reservationDate) {
 
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-
         ContentValues values = new ContentValues();
 
-
         values.put("user_id", userId);
-
         values.put("event_id", eventId);
-
         values.put("quantity", quantity);
-
         values.put("reservation_type", reservationType);
-
         values.put("status", status);
-
+        values.put("reservation_date", reservationDate);
 
 
         long result = db.insert(
@@ -242,17 +238,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 values
         );
 
-
         return result != -1;
-
     }
     public Cursor getReservations(){
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-
         return db.rawQuery(
-                "SELECT reservations.*, events.title " +
+                "SELECT events.title, " +
+                        "reservations.quantity, " +
+                        "reservations.reservation_type, " +
+                        "reservations.status, " +
+                        "reservations.reservation_date " +
                         "FROM reservations " +
                         "INNER JOIN events " +
                         "ON reservations.event_id = events.id",
@@ -562,15 +559,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getUserReservations(int userId){
 
         SQLiteDatabase db = getReadableDatabase();
-
         return db.rawQuery(
-                "SELECT events.title, reservations.quantity, reservations.reservation_type, reservations.status " +
-                        "FROM reservations " +
+                "SELECT events.title, quantity, reservation_type, status, reservation_date " +                       "FROM reservations " +
                         "INNER JOIN events ON reservations.event_id = events.id " +
-                        "WHERE reservations.user_id = ?",
-                new String[]{
-                        String.valueOf(userId)
-                }
+                        "WHERE user_id=?",
+                new String[]{String.valueOf(userId)}
         );
 
     }

@@ -21,11 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.adapters.ReservationAdapter;
 import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
+import com.example.a1220458_1220014_courseproject.models.Reservation;
 
 
 import java.util.ArrayList;
 
-
+import com.example.a1220458_1220014_courseproject.models.Reservation;
 
 public class ReservationsFragment extends Fragment {
 
@@ -33,8 +34,7 @@ public class ReservationsFragment extends Fragment {
 
     RecyclerView recyclerView;
     int userId;
-    ArrayList<String> reservations;
-
+    ArrayList<Reservation> reservations;
     ReservationAdapter adapter;
 
     DatabaseHelper databaseHelper;
@@ -117,11 +117,20 @@ public class ReservationsFragment extends Fragment {
 
 
 
+            String eventDate =
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow("reservation_date")
+                    );
+
+
             reservations.add(
-                    "Event: " + eventName
-                            + "\nQuantity: " + quantity
-                            + "\nType: " + type
-                            + "\nStatus: " + status
+                    new Reservation(
+                            eventName,
+                            eventDate,
+                            quantity,
+                            type,
+                            status
+                    )
             );
 
 

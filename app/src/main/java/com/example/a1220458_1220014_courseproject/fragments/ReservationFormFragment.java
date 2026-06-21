@@ -171,17 +171,24 @@ public class ReservationFormFragment extends Fragment {
 
                 }
 
+                String status = "Confirmed";
+
+                String reservationDate =
+                        new java.text.SimpleDateFormat(
+                                "yyyy-MM-dd",
+                                java.util.Locale.getDefault()
+                        ).format(new java.util.Date());
+
+
                 boolean saved =
                         databaseHelper.insertReservation(
                                 userId,
                                 eventId,
                                 quantityValue,
                                 type,
-                                "Confirmed"
+                                status,
+                                reservationDate
                         );
-
-
-
                 if(saved){
 
 
