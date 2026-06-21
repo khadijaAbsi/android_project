@@ -16,7 +16,6 @@ import com.example.a1220458_1220014_courseproject.fragments.AddAdminFragment;
 import com.example.a1220458_1220014_courseproject.fragments.AddEventFragment;
 import com.example.a1220458_1220014_courseproject.fragments.AdminDeleteEventFragment;
 import com.example.a1220458_1220014_courseproject.fragments.HomeFragment;
-import com.example.a1220458_1220014_courseproject.fragments.AdminEventsFragment;
 import com.example.a1220458_1220014_courseproject.fragments.AdminReservationsFragment;
 
 import com.example.a1220458_1220014_courseproject.fragments.AdminEditEventFragment;
