@@ -1,0 +1,345 @@
+666666666++224/?5\\0 .idea/.gitignore
+\==================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
++++ /dev/null	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
+@@ -1,3 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+Index: .idea/deviceManager.xml
+===================================================================
+diff --git a/.idea/deviceManager.xml b/.idea/deviceManager.xml
+deleted file mode 100644
+--- a/.idea/deviceManager.xml	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
++++ /dev/null	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
+@@ -1,13 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="DeviceTable">
+-    <option name="columnSorters">
+-      <list>
+-        <ColumnSorterState>
+-          <option name="column" value="Name" />
+-          <option name="order" value="ASCENDING" />
+-        </ColumnSorterState>
+-      </list>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: app/src/main/java/com/example/a1220458_1220014_courseproject/activities/MainActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/example/a1220458_1220014_courseproject/activities/MainActivity.java b/app/src/main/java/com/example/a1220458_1220014_courseproject/activities/MainActivity.java
+deleted file mode 100644
+--- a/app/src/main/java/com/example/a1220458_1220014_courseproject/activities/MainActivity.java	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
++++ /dev/null	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
+@@ -1,101 +0,0 @@
+-package com.example.a1220458_1220014_courseproject.activities;
+-
+-
+-import android.os.Bundle;
+-import com.example.a1220458_1220014_courseproject.fragments.EventsFragment;
+-import com.example.a1220458_1220014_courseproject.fragments.ReservationsFragment;
+-import com.example.a1220458_1220014_courseproject.fragments.FavoritesFragment;
+-import com.example.a1220458_1220014_courseproject.fragments.SpecialFragment;
+-import androidx.appcompat.app.AppCompatActivity;
+-import androidx.drawerlayout.widget.DrawerLayout;
+-import androidx.fragment.app.Fragment;
+-
+-import com.google.android.material.navigation.NavigationView;
+-
+-import com.example.a1220458_1220014_courseproject.R;
+-import com.example.a1220458_1220014_courseproject.fragments.HomeFragment;
+-
+-
+-
+-public class MainActivity extends AppCompatActivity {
+-
+-
+-    DrawerLayout drawerLayout;
+-    NavigationView navigationView;
+-
+-
+-    @Override
+-    protected void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-
+-        setContentView(R.layout.activity_main);
+-
+-
+-        drawerLayout = findViewById(R.id.drawerLayout);
+-        navigationView = findViewById(R.id.navigationView);
+-
+-
+-        getSupportFragmentManager()
+-                .beginTransaction()
+-                .replace(R.id.fragmentContainer,new HomeFragment())
+-                .commit();
+-
+-
+-
+-        navigationView.setNavigationItemSelectedListener(item -> {
+-
+-
+-            int id = item.getItemId();
+-
+-            if(id == R.id.home){
+-
+-                loadFragment(new HomeFragment());
+-
+-            }
+-
+-            else if(id == R.id.events){
+-
+-                loadFragment(new EventsFragment());
+-
+-            }
+-
+-            else if(id == R.id.reservations){
+-
+-                loadFragment(new ReservationsFragment());
+-
+-            }
+-
+-            else if(id == R.id.favorites){
+-
+-                loadFragment(new FavoritesFragment());
+-
+-            }
+-
+-            else if(id == R.id.special){
+-
+-                loadFragment(new SpecialFragment());
+-
+-            }
+-
+-
+-            drawerLayout.closeDrawers();
+-
+-            return true;
+-
+-        });
+-
+-
+-    }
+-
+-
+-
+-    private void loadFragment(Fragment fragment){
+-
+-        getSupportFragmentManager()
+-                .beginTransaction()
+-                .replace(R.id.fragmentContainer,fragment)
+-                .commit();
+-
+-    }
+-
+-}
+\ No newline at end of file
+Index: .idea/.name
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.name b/.idea/.name
+new file mode 100644
+--- /dev/null	(date 1781795248365)
++++ b/.idea/.name	(date 1781795248365)
+@@ -0,0 +1,1 @@
++1220458_1220014_CourseProject
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_21\" project-jdk-name=\"jbr-21\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
++++ b/.idea/misc.xml	(date 1781795283607)
+@@ -1,9 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="jbr-21" project-jdk-type="JavaSDK">
+-    <output url="file://$PROJECT_DIR$/build/classes" />
+-  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="jbr-21" project-jdk-type="JavaSDK" />
+   <component name="ProjectType">
+     <option name="id" value="Android" />
+   </component>
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
++++ b/.idea/vcs.xml	(date 1781795249091)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    alias(libs.plugins.android.application)\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.example.a1220458_1220014_courseproject\"\r\n    compileSdk {\r\n        version = release(36) {\r\n            minorApiLevel = 1\r\n        }\r\n    }\r\n\r\n    defaultConfig {\r\n        applicationId = \"com.example.a1220458_1220014_courseproject\"\r\n        minSdk = 28\r\n        targetSdk = 36\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(\r\n                getDefaultProguardFile(\"proguard-android-optimize.txt\"),\r\n                \"proguard-rules.pro\"\r\n            )\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_11\r\n        targetCompatibility = JavaVersion.VERSION_11\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation(libs.appcompat)\r\n    implementation(libs.material)\r\n    implementation(libs.activity)\r\n    implementation(libs.constraintlayout)\r\n    testImplementation(libs.junit)\r\n    androidTestImplementation(libs.ext.junit)\r\n    androidTestImplementation(libs.espresso.core)\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
++++ b/app/build.gradle.kts	(date 1781795097294)
+@@ -33,6 +33,7 @@
+         sourceCompatibility = JavaVersion.VERSION_11
+         targetCompatibility = JavaVersion.VERSION_11
+     }
++
+ }
+ 
+ dependencies {
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme._1220458_1220014_courseProject\">\r\n        <activity\r\n            android:name=\".SplashActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
++++ b/app/src/main/AndroidManifest.xml	(date 1781796119136)
+@@ -1,28 +1,30 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools">
++<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+     <application
+         android:allowBackup="true"
+-        android:dataExtractionRules="@xml/data_extraction_rules"
+-        android:fullBackupContent="@xml/backup_rules"
+         android:icon="@mipmap/ic_launcher"
+         android:label="@string/app_name"
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+-        android:theme="@style/Theme._1220458_1220014_courseProject">
++        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
++
+         <activity
+-            android:name=".SplashActivity"
++            android:name=".IntroductionActivity"
+             android:exported="false" />
++
+         <activity
+             android:name=".MainActivity"
+             android:exported="true">
++
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+ 
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
++
+         </activity>
++
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n\r\n<androidx.drawerlayout.widget.DrawerLayout\r\n\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n\r\n\r\n    android:id=\"@+id/drawerLayout\"\r\n\r\n    android:layout_width=\"match_parent\"\r\n\r\n    android:layout_height=\"match_parent\">\r\n\r\n\r\n    <LinearLayout\r\n\r\n        android:layout_width=\"match_parent\"\r\n\r\n        android:layout_height=\"match_parent\"\r\n\r\n        android:orientation=\"vertical\">\r\n\r\n\r\n        <FrameLayout\r\n\r\n            android:id=\"@+id/fragmentContainer\"\r\n\r\n            android:layout_width=\"match_parent\"\r\n\r\n            android:layout_height=\"match_parent\"/>\r\n\r\n\r\n    </LinearLayout>\r\n\r\n\r\n\r\n    <com.google.android.material.navigation.NavigationView\r\n\r\n        android:id=\"@+id/navigationView\"\r\n\r\n        android:layout_width=\"wrap_content\"\r\n\r\n        android:layout_height=\"match_parent\"\r\n\r\n        android:layout_gravity=\"start\"\r\n\r\n\r\n        app:menu=\"@menu/navigation_menu\"/>\r\n\r\n\r\n\r\n</androidx.drawerlayout.widget.DrawerLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+--- a/app/src/main/res/layout/activity_main.xml	(revision 8a8733423cf166ed0c06f5a94f2872da96605900)
++++ b/app/src/main/res/layout/activity_main.xml	(date 1781729357178)
+@@ -1,55 +1,25 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-
+-
+-<androidx.drawerlayout.widget.DrawerLayout
+-
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-
+-
+-    android:id="@+id/drawerLayout"
+-
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+-
+-    android:layout_height="match_parent">
+-
+-
+-    <LinearLayout
+-
+-        android:layout_width="match_parent"
+-
+-        android:layout_height="match_parent"
+-
+-        android:orientation="vertical">
+-
+-
+-        <FrameLayout
+-
+-            android:id="@+id/fragmentContainer"
++    android:layout_height="match_parent"
++    android:background="#F5F7FA">
+ 
+-            android:layout_width="match_parent"
++    <ImageView
++        android:id="@+id/imgLogo"
++        android:layout_width="180dp"
++        android:layout_height="180dp"
++        android:layout_centerInParent="true"
++        android:src="@drawable/logo" />
+ 
+-            android:layout_height="match_parent"/>
+-
+-
+-    </LinearLayout>
+-
+-
+-
+-    <com.google.android.material.navigation.NavigationView
+-
+-        android:id="@+id/navigationView"
+-
++    <TextView
++        android:id="@+id/txtTitle"
+         android:layout_width="wrap_content"
+-
+-        android:layout_height="match_parent"
+-
+-        android:layout_gravity="start"
+-
+-
+-        app:menu="@menu/navigation_menu"/>
+-
+-
++        android:layout_height="wrap_content"
++        android:layout_below="@id/imgLogo"
++        android:layout_centerHorizontal="true"
++        android:layout_marginTop="20dp"
++        android:text="Smart University Events"
++        android:textSize="26sp"
++        android:textStyle="bold" />
+ 
+-</androidx.drawerlayout.widget.DrawerLayout>
+\ No newline at end of file
++</RelativeLayout>
+\ No newline at end of file
