@@ -18,8 +18,7 @@
 
         android:scaleType="centerCrop"
 
-        android:alpha="0.65"/>
-
+        android:alpha="0.75"/>
 
     <ScrollView
 
@@ -41,123 +40,139 @@
             android:gravity="center_horizontal">
 
 
-            <TextView
+            <LinearLayout
 
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
 
-                android:layout_gravity="center"
-
-                android:layout_marginTop="40dp"
+                android:orientation="vertical"
 
                 android:gravity="center"
 
-                android:text="Smart University Events"
-
-                android:textColor="@color/green_dark"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-
-
-            <TextView
-
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="45dp"
-
-                android:text="Application Overview"
-
-                android:textSize="22sp"
-
-                android:textStyle="bold"
-
-                android:textColor="@color/green_dark"
-
-                android:gravity="center"/>
-
-
-
-            <TextView
-
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="20dp"
-
-                android:text="Discover, reserve and manage university events easily"
-
-                android:textSize="17sp"
-
-                android:textColor="@color/green"
-
-                android:gravity="center"/>
-
-
-            <TextView
-
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-
-                android:layout_gravity="center"
+                android:padding="20dp"
 
                 android:layout_marginTop="40dp"
 
-                android:gravity="center"
-
-                android:text="Theme Description"
-
-                android:textColor="@color/green_dark"
-
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:background="@drawable/details_box">
 
 
+                <TextView
 
-            <TextView
+                    android:layout_width="wrap_content"
 
-                android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-                android:layout_height="wrap_content"
+                    android:text="Smart University Events"
 
-                android:layout_marginTop="20dp"
+                    android:textColor="@color/green_dark"
 
-                android:text="The application uses a green theme to provide a modern and comfortable university experience."
+                    android:textSize="30sp"
 
-                android:textSize="16sp"
+                    android:textStyle="bold"
 
-                android:textColor="@color/green"
-
-                android:gravity="center"/>
+                    android:gravity="center"/>
 
 
 
-            <Button
+                <TextView
 
-                android:id="@+id/exploreButton"
+                    android:layout_width="match_parent"
 
-                android:layout_width="220dp"
+                    android:layout_height="wrap_content"
 
-                android:layout_height="55dp"
+                    android:layout_marginTop="35dp"
 
-                android:layout_marginTop="45dp"
+                    android:text="Application Overview"
 
-                android:text="Explore Events"
+                    android:textSize="22sp"
 
-                android:textSize="16sp"
+                    android:textStyle="bold"
 
-                android:textStyle="bold"
+                    android:textColor="@color/green_dark"
 
-                android:textColor="@android:color/white"
+                    android:gravity="center"/>
 
-                android:backgroundTint="@color/green_dark"
 
-                android:padding="10dp"/>
+
+                <TextView
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="15dp"
+
+                    android:text="Discover, reserve and manage university events easily"
+
+                    android:textSize="17sp"
+
+                    android:textColor="@color/green"
+
+                    android:gravity="center"/>
+
+
+
+                <TextView
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="35dp"
+
+                    android:text="Theme Description"
+
+                    android:textSize="22sp"
+
+                    android:textStyle="bold"
+
+                    android:textColor="@color/green_dark"
+
+                    android:gravity="center"/>
+
+
+
+                <TextView
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="15dp"
+
+                    android:text="The application uses a green theme to provide a sweet experience."
+
+                    android:textSize="16sp"
+
+                    android:textColor="@color/green"
+
+                    android:gravity="center"/>
+
+
+
+                <Button
+
+                    android:id="@+id/exploreButton"
+
+                    android:layout_width="220dp"
+
+                    android:layout_height="55dp"
+
+                    android:layout_marginTop="35dp"
+
+                    android:text="Explore Events"
+
+                    android:textSize="16sp"
+
+                    android:textStyle="bold"
+
+                    android:textColor="@android:color/white"
+
+                    android:backgroundTint="@color/green_dark"/>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>

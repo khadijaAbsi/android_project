@@ -108,18 +108,17 @@ public class LoginActivity extends AppCompatActivity {
             // User Login
             if (databaseHelper.checkUser(email, password)) {
 
-
-                int userId =
-                        databaseHelper.getUserId(email);
-
+                int userId = databaseHelper.getUserId(email);
 
                 SharedPreferences.Editor editor =
                         sharedPreferences.edit();
 
 
-                editor.putInt(
-                        "user_id",
-                        userId
+                editor.putInt("user_id", userId);
+
+                editor.putString(
+                        "current_user_email",
+                        email
                 );
 
 
@@ -135,25 +134,19 @@ public class LoginActivity extends AppCompatActivity {
                             true
                     );
 
-                    editor.putString(
-                            "current_user_email",
-                            email
-                    );
-
                 } else {
 
-                    editor.clear();
+                    editor.remove("email");
+                    editor.putBoolean(
+                            "remember",
+                            false
+                    );
 
                 }
 
 
                 editor.apply();
 
-                Toast.makeText(
-                        this,
-                        "Login Successful",
-                        Toast.LENGTH_SHORT
-                ).show();
 
                 startActivity(
                         new Intent(
