@@ -144,6 +144,8 @@ public class RegisterActivity extends AppCompatActivity {
         );
 
         if (inserted) {
+            databaseHelper.checkUsers();
+
 
             Toast.makeText(
                     this,
@@ -151,7 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT
             ).show();
 
-            finish(); // يرجع للـ Login
+            finish();
 
         } else {
 
