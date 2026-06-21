@@ -2,6 +2,7 @@ package com.example.a1220458_1220014_courseproject.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -93,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT
                 ).show();
 
-                startActivity(
+              startActivity(
                         new Intent(
                                 LoginActivity.this,
                                 AdminActivity.class
@@ -185,4 +186,5 @@ public class LoginActivity extends AppCompatActivity {
 
         });
     }
+
 }
