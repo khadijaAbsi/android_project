@@ -20,7 +20,8 @@ import com.example.a1220458_1220014_courseproject.fragments.SpecialFragment;
 
 import com.example.a1220458_1220014_courseproject.fragments.ProfileFragment;
 import com.example.a1220458_1220014_courseproject.fragments.ContactUsFragment;
-
+import android.content.Intent;
+import android.content.SharedPreferences;
 public class HomeActivity extends AppCompatActivity {
 
 
@@ -96,7 +97,32 @@ public class HomeActivity extends AppCompatActivity {
                 loadFragment(new ContactUsFragment());
 
             }
+            else if(id == R.id.logout){
 
+                SharedPreferences prefs =
+                        getSharedPreferences(
+                                "LoginPrefs",
+                                MODE_PRIVATE
+                        );
+
+                prefs.edit()
+                        .clear()
+                        .apply();
+
+
+                Intent intent =
+                        new Intent(
+                                HomeActivity.this,
+                                LoginActivity.class
+                        );
+
+
+                startActivity(intent);
+
+
+                finish();
+
+            }
 
             drawerLayout.closeDrawers();
 
