@@ -599,5 +599,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
     }
+    public boolean insertAdmin(String email,
+                               String password){
 
+        SQLiteDatabase db =
+                this.getWritableDatabase();
+
+        ContentValues values =
+                new ContentValues();
+
+        values.put("email", email);
+        values.put("password", password);
+
+        long result =
+                db.insert(
+                        "admins",
+                        null,
+                        values
+                );
+
+        return result != -1;
+    }
+
+
+    public Cursor getAllUsers(){
+
+        SQLiteDatabase db =
+                this.getReadableDatabase();
+
+        return db.rawQuery(
+                "SELECT * FROM users",
+                null
+        );
+    }
+
+
+    public boolean deleteUser(int userId){
+
+        SQLiteDatabase db =
+                this.getWritableDatabase();
+
+        int result =
+                db.delete(
+                        "users",
+                        "id=?",
+                        new String[]{
+                                String.valueOf(userId)
+                        }
+                );
+
+        return result > 0;
+    }
 }
