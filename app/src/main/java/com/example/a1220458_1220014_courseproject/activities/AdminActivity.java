@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.fragments.AddAdminFragment;
+import com.example.a1220458_1220014_courseproject.fragments.DeleteUsersFragment;
 import com.example.a1220458_1220014_courseproject.fragments.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.example.a1220458_1220014_courseproject.fragments.ViewUsersFragment;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -45,7 +47,13 @@ public class AdminActivity extends AppCompatActivity {
                 );
 
             }
+            else if(id == R.id.viewUsers){
 
+                loadFragment(
+                        new ViewUsersFragment()
+                );
+
+            }
             else if(id == R.id.logout){
 
                 startActivity(
@@ -55,8 +63,18 @@ public class AdminActivity extends AppCompatActivity {
                         )
                 );
 
+
                 finish();
+
             }
+            else if (id == R.id.deleteUsers){
+
+                loadFragment(
+                        new DeleteUsersFragment()
+                );
+
+            }
+
 
             drawerLayout.closeDrawers();
 
@@ -73,6 +91,7 @@ public class AdminActivity extends AppCompatActivity {
                         fragment
                 )
                 .commit();
-        /// change is here
+
     }
+
 }
