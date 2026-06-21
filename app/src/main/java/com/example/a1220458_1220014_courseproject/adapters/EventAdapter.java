@@ -246,34 +246,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                         Toast.LENGTH_SHORT
                 ).show();
 
-               /* if(db.isFavorite(1, event.getId())){
 
-
-                    Toast.makeText(
-                            v.getContext(),
-                            "Already in Favorites",
-                            Toast.LENGTH_SHORT
-                    ).show();
-
-
-
-                }else{
-
-
-                    db.insertFavorite(
-                            1,
-                            event.getId()
-                    );
-
-
-                    Toast.makeText(
-                            v.getContext(),
-                            "Added to Favorites",
-                            Toast.LENGTH_SHORT
-                    ).show();
-
-
-                }*/
             }
 
 
@@ -309,6 +282,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public static class EventViewHolder extends RecyclerView.ViewHolder {
 
 
+        Button deleteButton;
 
         TextView title;
 
@@ -332,7 +306,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
             title = itemView.findViewById(R.id.eventTitle);
-
+            deleteButton =
+                    itemView.findViewById(R.id.deleteButton);
             category = itemView.findViewById(R.id.eventCategory);
 
             date = itemView.findViewById(R.id.eventDate);

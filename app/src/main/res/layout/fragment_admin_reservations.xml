@@ -32,67 +32,39 @@
 
         android:orientation="vertical"
 
-        android:padding="16dp"
+        android:padding="20dp"
 
         android:paddingTop="60dp">
 
 
 
-        <SearchView
-
-            android:id="@+id/searchView"
-
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-
-            android:iconifiedByDefault="false"
-
-            android:queryHint="Search events..." />
-
-
-
-        <Spinner
-
-            android:id="@+id/categorySpinner"
-
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="10dp"/>
-
-
-
         <TextView
 
-            android:id="@+id/emptyText"
-
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
 
             android:layout_height="wrap_content"
 
-            android:text="No events found"
+            android:text="Admin Reservations"
 
-            android:textSize="18sp"
+            android:textSize="28sp"
+
+            android:textStyle="bold"
 
             android:textColor="@color/green_dark"
 
-            android:layout_gravity="center"
+            android:gravity="center"
 
-            android:visibility="gone"/>
+            android:layout_marginBottom="25dp"/>
 
 
 
         <androidx.recyclerview.widget.RecyclerView
 
-            android:id="@+id/eventsRecyclerView"
+            android:id="@+id/reservationsRecyclerView"
 
             android:layout_width="match_parent"
 
-            android:layout_height="match_parent"
-
-            android:layout_marginTop="15dp"/>
+            android:layout_height="match_parent"/>
 
 
 

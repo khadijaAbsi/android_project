@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,18 +80,16 @@ public class ReservationsFragment extends Fragment {
                         ""
                 );
 
-        userId =
-                databaseHelper.getUserId(email);
+        userId = databaseHelper.getUserId(email);
+
+        Log.d("USER_ID", "userId = " + userId);
+        Log.d("USER_EMAIL", "email = " + email);
 
 
-
-        reservations =
-                new ArrayList<>();
-
+        reservations = new ArrayList<>();
 
         Cursor cursor =
                 databaseHelper.getUserReservations(userId);
-
 
 
         while(cursor.moveToNext()){
@@ -133,7 +132,7 @@ public class ReservationsFragment extends Fragment {
         cursor.close();
 
 
-
+        System.out.println("LIST SIZE = " + reservations.size());
         adapter =
                 new ReservationAdapter(reservations);
 

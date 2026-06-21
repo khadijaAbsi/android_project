@@ -3,34 +3,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
+
     android:layout_height="wrap_content"
+
     android:orientation="vertical"
-    android:padding="16dp">
+
+    android:padding="16dp"
+
+    android:background="#F5F5F5">
 
 
     <TextView
+
         android:id="@+id/favoriteTitle"
+
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
-        android:textSize="18sp"/>
+
+        android:textSize="18sp"
+
+        android:textStyle="bold"
+
+        android:textColor="@color/green_dark"/>
 
 
     <TextView
+
         android:id="@+id/favoriteCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
+        android:layout_width="match_parent"
 
-    <Button
-        android:id="@+id/removeFavorite"
-        android:text="Remove"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/reserveFavorite"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reserve"/>
+
+        android:textColor="#555555"
+
+        android:textSize="15sp"
+
+        android:layout_marginTop="5dp"/>
+
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+
+        android:layout_marginTop="10dp">
+
+
+        <Button
+
+            android:id="@+id/removeFavorite"
+
+            android:layout_width="0dp"
+
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+
+            android:text="Remove"
+
+            android:textColor="#FFFFFF"
+
+            android:backgroundTint="#E53935"/>
+
+
+        <Button
+
+            android:id="@+id/reserveFavorite"
+
+            android:layout_width="0dp"
+
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+
+            android:layout_marginStart="8dp"
+
+            android:text="Reserve"
+
+            android:textColor="#FFFFFF"
+
+            android:backgroundTint="@color/green_light"/>
+
+
+    </LinearLayout>
 
 
 </LinearLayout>
