@@ -1,32 +1,57 @@
 package com.example.a1220458_1220014_courseproject.activities;
 
+
 import android.content.Intent;
 import android.os.Bundle;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+
 import com.example.a1220458_1220014_courseproject.R;
+
 import com.example.a1220458_1220014_courseproject.fragments.AddAdminFragment;
+import com.example.a1220458_1220014_courseproject.fragments.AddEventFragment;
+import com.example.a1220458_1220014_courseproject.fragments.AdminDeleteEventFragment;
 import com.example.a1220458_1220014_courseproject.fragments.DeleteUsersFragment;
 import com.example.a1220458_1220014_courseproject.fragments.HomeFragment;
-import com.google.android.material.navigation.NavigationView;
+import com.example.a1220458_1220014_courseproject.fragments.AdminReservationsFragment;
+import com.example.a1220458_1220014_courseproject.fragments.AdminEditEventFragment;
 import com.example.a1220458_1220014_courseproject.fragments.ViewUsersFragment;
+
+import com.google.android.material.navigation.NavigationView;
+
+
 
 public class AdminActivity extends AppCompatActivity {
 
+
     DrawerLayout drawerLayout;
+
     NavigationView navigationView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_admin);
 
-        drawerLayout = findViewById(R.id.drawerLayout);
-        navigationView = findViewById(R.id.navigationView);
+
+
+        drawerLayout =
+                findViewById(R.id.drawerLayout);
+
+
+        navigationView =
+                findViewById(R.id.navigationView);
+
+
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -36,9 +61,14 @@ public class AdminActivity extends AppCompatActivity {
                 )
                 .commit();
 
+
+
         navigationView.setNavigationItemSelectedListener(item -> {
 
+
             int id = item.getItemId();
+
+
 
             if(id == R.id.addAdmin){
 
@@ -47,6 +77,8 @@ public class AdminActivity extends AppCompatActivity {
                 );
 
             }
+
+
             else if(id == R.id.viewUsers){
 
                 loadFragment(
@@ -54,7 +86,55 @@ public class AdminActivity extends AppCompatActivity {
                 );
 
             }
+
+
+            else if(id == R.id.deleteUsers){
+
+                loadFragment(
+                        new DeleteUsersFragment()
+                );
+
+            }
+
+
+            else if(id == R.id.addEvent){
+
+                loadFragment(
+                        new AddEventFragment()
+                );
+
+            }
+
+
+            else if(id == R.id.editEvent){
+
+                loadFragment(
+                        new AdminEditEventFragment()
+                );
+
+            }
+
+
+            else if(id == R.id.deleteEvent){
+
+                loadFragment(
+                        new AdminDeleteEventFragment()
+                );
+
+            }
+
+
+            else if(id == R.id.viewReservations){
+
+                loadFragment(
+                        new AdminReservationsFragment()
+                );
+
+            }
+
+
             else if(id == R.id.logout){
+
 
                 startActivity(
                         new Intent(
@@ -67,31 +147,43 @@ public class AdminActivity extends AppCompatActivity {
                 finish();
 
             }
-            else if (id == R.id.deleteUsers){
 
-                loadFragment(
-                        new DeleteUsersFragment()
-                );
-
-            }
 
 
             drawerLayout.closeDrawers();
 
+
             return true;
+
+
         });
+
+
+
     }
+
+
+
+
 
     private void loadFragment(Fragment fragment){
 
+
         getSupportFragmentManager()
+
                 .beginTransaction()
+
                 .replace(
                         R.id.fragmentContainer,
                         fragment
                 )
+
+                .addToBackStack(null)
+
                 .commit();
 
+
     }
+
 
 }
