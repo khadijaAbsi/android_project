@@ -127,25 +127,16 @@ public class LoginActivity extends AppCompatActivity {
                 );
 
 
+                editor.putString("current_user_email", email);
+
                 if (cbRememberMe.isChecked()) {
 
-                    editor.putString(
-                            "email",
-                            email
-                    );
-
-                    editor.putBoolean(
-                            "remember",
-                            true
-                    );
+                    editor.putString("email", email);
+                    editor.putBoolean("remember", true);
 
                 } else {
 
-                    editor.remove("email");
-                    editor.putBoolean(
-                            "remember",
-                            false
-                    );
+                    editor.putBoolean("remember", false);
 
                 }
 
