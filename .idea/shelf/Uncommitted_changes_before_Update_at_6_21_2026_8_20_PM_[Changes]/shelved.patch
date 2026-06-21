@@ -1,0 +1,408 @@
+Index: app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminReservationsFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminReservationsFragment.java b/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminReservationsFragment.java
+new file mode 100644
+--- /dev/null	(date 1782062396385)
++++ b/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminReservationsFragment.java	(date 1782062396385)
+@@ -0,0 +1,66 @@
++package com.example.a1220458_1220014_courseproject.fragments;
++
++import android.os.Bundle;
++
++import androidx.fragment.app.Fragment;
++
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++
++import com.example.a1220458_1220014_courseproject.R;
++
++/**
++ * A simple {@link Fragment} subclass.
++ * Use the {@link AdminReservationsFragment#newInstance} factory method to
++ * create an instance of this fragment.
++ */
++public class AdminReservationsFragment extends Fragment {
++
++    // TODO: Rename parameter arguments, choose names that match
++    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++    private static final String ARG_PARAM1 = "param1";
++    private static final String ARG_PARAM2 = "param2";
++
++    // TODO: Rename and change types of parameters
++    private String mParam1;
++    private String mParam2;
++
++    public AdminReservationsFragment() {
++        // Required empty public constructor
++    }
++
++    /**
++     * Use this factory method to create a new instance of
++     * this fragment using the provided parameters.
++     *
++     * @param param1 Parameter 1.
++     * @param param2 Parameter 2.
++     * @return A new instance of fragment AdminReservationsFragment.
++     */
++    // TODO: Rename and change types and number of parameters
++    public static AdminReservationsFragment newInstance(String param1, String param2) {
++        AdminReservationsFragment fragment = new AdminReservationsFragment();
++        Bundle args = new Bundle();
++        args.putString(ARG_PARAM1, param1);
++        args.putString(ARG_PARAM2, param2);
++        fragment.setArguments(args);
++        return fragment;
++    }
++
++    @Override
++    public void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        if (getArguments() != null) {
++            mParam1 = getArguments().getString(ARG_PARAM1);
++            mParam2 = getArguments().getString(ARG_PARAM2);
++        }
++    }
++
++    @Override
++    public View onCreateView(LayoutInflater inflater, ViewGroup container,
++                             Bundle savedInstanceState) {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_admin_reservations, container, false);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_admin_reservations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_admin_reservations.xml b/app/src/main/res/layout/fragment_admin_reservations.xml
+new file mode 100644
+--- /dev/null	(date 1782062396388)
++++ b/app/src/main/res/layout/fragment_admin_reservations.xml	(date 1782062396388)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".fragments.AdminReservationsFragment">
++
++    <!-- TODO: Update blank fragment layout -->
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:text="@string/hello_blank_fragment" />
++
++</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminEditEventFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminEditEventFragment.java b/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminEditEventFragment.java
+new file mode 100644
+--- /dev/null	(date 1782062396383)
++++ b/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminEditEventFragment.java	(date 1782062396383)
+@@ -0,0 +1,66 @@
++package com.example.a1220458_1220014_courseproject.fragments;
++
++import android.os.Bundle;
++
++import androidx.fragment.app.Fragment;
++
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++
++import com.example.a1220458_1220014_courseproject.R;
++
++/**
++ * A simple {@link Fragment} subclass.
++ * Use the {@link AdminEditEventFragment#newInstance} factory method to
++ * create an instance of this fragment.
++ */
++public class AdminEditEventFragment extends Fragment {
++
++    // TODO: Rename parameter arguments, choose names that match
++    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++    private static final String ARG_PARAM1 = "param1";
++    private static final String ARG_PARAM2 = "param2";
++
++    // TODO: Rename and change types of parameters
++    private String mParam1;
++    private String mParam2;
++
++    public AdminEditEventFragment() {
++        // Required empty public constructor
++    }
++
++    /**
++     * Use this factory method to create a new instance of
++     * this fragment using the provided parameters.
++     *
++     * @param param1 Parameter 1.
++     * @param param2 Parameter 2.
++     * @return A new instance of fragment AdminEditEventFragment.
++     */
++    // TODO: Rename and change types and number of parameters
++    public static AdminEditEventFragment newInstance(String param1, String param2) {
++        AdminEditEventFragment fragment = new AdminEditEventFragment();
++        Bundle args = new Bundle();
++        args.putString(ARG_PARAM1, param1);
++        args.putString(ARG_PARAM2, param2);
++        fragment.setArguments(args);
++        return fragment;
++    }
++
++    @Override
++    public void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        if (getArguments() != null) {
++            mParam1 = getArguments().getString(ARG_PARAM1);
++            mParam2 = getArguments().getString(ARG_PARAM2);
++        }
++    }
++
++    @Override
++    public View onCreateView(LayoutInflater inflater, ViewGroup container,
++                             Bundle savedInstanceState) {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_admin_edit_event, container, false);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_admin_edit_event.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_admin_edit_event.xml b/app/src/main/res/layout/fragment_admin_edit_event.xml
+new file mode 100644
+--- /dev/null	(date 1782062396388)
++++ b/app/src/main/res/layout/fragment_admin_edit_event.xml	(date 1782062396388)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".fragments.AdminEditEventFragment">
++
++    <!-- TODO: Update blank fragment layout -->
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:text="@string/hello_blank_fragment" />
++
++</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AddEventFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AddEventFragment.java b/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AddEventFragment.java
+new file mode 100644
+--- /dev/null	(date 1782062396382)
++++ b/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AddEventFragment.java	(date 1782062396382)
+@@ -0,0 +1,66 @@
++package com.example.a1220458_1220014_courseproject.fragments;
++
++import android.os.Bundle;
++
++import androidx.fragment.app.Fragment;
++
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++
++import com.example.a1220458_1220014_courseproject.R;
++
++/**
++ * A simple {@link Fragment} subclass.
++ * Use the {@link AddEventFragment#newInstance} factory method to
++ * create an instance of this fragment.
++ */
++public class AddEventFragment extends Fragment {
++
++    // TODO: Rename parameter arguments, choose names that match
++    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++    private static final String ARG_PARAM1 = "param1";
++    private static final String ARG_PARAM2 = "param2";
++
++    // TODO: Rename and change types of parameters
++    private String mParam1;
++    private String mParam2;
++
++    public AddEventFragment() {
++        // Required empty public constructor
++    }
++
++    /**
++     * Use this factory method to create a new instance of
++     * this fragment using the provided parameters.
++     *
++     * @param param1 Parameter 1.
++     * @param param2 Parameter 2.
++     * @return A new instance of fragment AddEventFragment.
++     */
++    // TODO: Rename and change types and number of parameters
++    public static AddEventFragment newInstance(String param1, String param2) {
++        AddEventFragment fragment = new AddEventFragment();
++        Bundle args = new Bundle();
++        args.putString(ARG_PARAM1, param1);
++        args.putString(ARG_PARAM2, param2);
++        fragment.setArguments(args);
++        return fragment;
++    }
++
++    @Override
++    public void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        if (getArguments() != null) {
++            mParam1 = getArguments().getString(ARG_PARAM1);
++            mParam2 = getArguments().getString(ARG_PARAM2);
++        }
++    }
++
++    @Override
++    public View onCreateView(LayoutInflater inflater, ViewGroup container,
++                             Bundle savedInstanceState) {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_add_event, container, false);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_add_event.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_add_event.xml b/app/src/main/res/layout/fragment_add_event.xml
+new file mode 100644
+--- /dev/null	(date 1782062396386)
++++ b/app/src/main/res/layout/fragment_add_event.xml	(date 1782062396386)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".fragments.AddEventFragment">
++
++    <!-- TODO: Update blank fragment layout -->
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:text="@string/hello_blank_fragment" />
++
++</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminDeleteEventFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminDeleteEventFragment.java b/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminDeleteEventFragment.java
+new file mode 100644
+--- /dev/null	(date 1782062396383)
++++ b/app/src/main/java/com/example/a1220458_1220014_courseproject/fragments/AdminDeleteEventFragment.java	(date 1782062396383)
+@@ -0,0 +1,66 @@
++package com.example.a1220458_1220014_courseproject.fragments;
++
++import android.os.Bundle;
++
++import androidx.fragment.app.Fragment;
++
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++
++import com.example.a1220458_1220014_courseproject.R;
++
++/**
++ * A simple {@link Fragment} subclass.
++ * Use the {@link AdminDeleteEventFragment#newInstance} factory method to
++ * create an instance of this fragment.
++ */
++public class AdminDeleteEventFragment extends Fragment {
++
++    // TODO: Rename parameter arguments, choose names that match
++    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++    private static final String ARG_PARAM1 = "param1";
++    private static final String ARG_PARAM2 = "param2";
++
++    // TODO: Rename and change types of parameters
++    private String mParam1;
++    private String mParam2;
++
++    public AdminDeleteEventFragment() {
++        // Required empty public constructor
++    }
++
++    /**
++     * Use this factory method to create a new instance of
++     * this fragment using the provided parameters.
++     *
++     * @param param1 Parameter 1.
++     * @param param2 Parameter 2.
++     * @return A new instance of fragment AdminDeleteEventFragment.
++     */
++    // TODO: Rename and change types and number of parameters
++    public static AdminDeleteEventFragment newInstance(String param1, String param2) {
++        AdminDeleteEventFragment fragment = new AdminDeleteEventFragment();
++        Bundle args = new Bundle();
++        args.putString(ARG_PARAM1, param1);
++        args.putString(ARG_PARAM2, param2);
++        fragment.setArguments(args);
++        return fragment;
++    }
++
++    @Override
++    public void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        if (getArguments() != null) {
++            mParam1 = getArguments().getString(ARG_PARAM1);
++            mParam2 = getArguments().getString(ARG_PARAM2);
++        }
++    }
++
++    @Override
++    public View onCreateView(LayoutInflater inflater, ViewGroup container,
++                             Bundle savedInstanceState) {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_admin_delete_event, container, false);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_admin_delete_event.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_admin_delete_event.xml b/app/src/main/res/layout/fragment_admin_delete_event.xml
+new file mode 100644
+--- /dev/null	(date 1782062396387)
++++ b/app/src/main/res/layout/fragment_admin_delete_event.xml	(date 1782062396387)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".fragments.AdminDeleteEventFragment">
++
++    <!-- TODO: Update blank fragment layout -->
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:text="@string/hello_blank_fragment" />
++
++</FrameLayout>
+\ No newline at end of file
