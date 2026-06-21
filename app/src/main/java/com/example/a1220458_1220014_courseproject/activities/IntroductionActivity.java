@@ -24,7 +24,7 @@ public class IntroductionActivity extends AppCompatActivity {
 
 
             new ConnectionAsyncTask(this)
-                    .execute("https://mocki.io/v1/76e0c2f6-0253-4272-b3e0-8158b474c372"
+                    .execute("https://mocki.io/v1/e06e4140-75fe-4379-beb4-0ea7fefe109d"
                    // .execute("https://mocki.io/v1/b883542e-5b71-4300-8510-a8b4890f1485"
 
                     );
@@ -54,6 +54,17 @@ public class IntroductionActivity extends AppCompatActivity {
 
         startActivity(intent);
 
+
+    }
+    public void openlogin(){
+
+        Intent intent =
+                new Intent(
+                        IntroductionActivity.this,
+                        LoginActivity.class
+                );
+
+        startActivity(intent);
 
     }
 }

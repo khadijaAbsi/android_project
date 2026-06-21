@@ -574,31 +574,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
 
     }
-    public void checkUsers(){
-
-        Cursor cursor =
-                getReadableDatabase()
-                        .rawQuery(
-                                "SELECT * FROM users",
-                                null
-                        );
-
-
-        System.out.println("USERS COUNT = " + cursor.getCount());
-
-
-        while(cursor.moveToNext()){
-
-            System.out.println(
-                    cursor.getString(
-                            cursor.getColumnIndexOrThrow("email")
-                    )
-            );
-
-        }
-
-        cursor.close();
-    }
+    // Add New Admin
     public boolean insertAdmin(String email,
                                String password){
 
@@ -622,6 +598,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    // View Users
     public Cursor getAllUsers(){
 
         SQLiteDatabase db =
@@ -634,6 +611,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    // Delete User
     public boolean deleteUser(int userId){
 
         SQLiteDatabase db =
@@ -650,4 +628,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return result > 0;
     }
+
 }

@@ -30,6 +30,10 @@ public class HttpManager {
 
             connection.setRequestMethod("GET");
 
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+
+
             connection.connect();
 
 
@@ -67,6 +71,9 @@ public class HttpManager {
 
 
             e.printStackTrace();
+            System.out.println("ERROR = " + e);
+
+
 
 
         }

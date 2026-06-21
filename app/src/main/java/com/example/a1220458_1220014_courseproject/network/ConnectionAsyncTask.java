@@ -106,7 +106,7 @@ public class ConnectionAsyncTask
 
 
         ((IntroductionActivity)activity)
-                .openHome();
+                .openlogin();
 
 
     }
