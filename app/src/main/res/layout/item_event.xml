@@ -105,6 +105,21 @@
 
                 android:backgroundTint="@color/green_dark"/>
 
+            <Button
+
+                android:id="@+id/deleteButton"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                android:text="DELETE"
+
+                android:textColor="@android:color/white"
+
+                android:backgroundTint="@android:color/holo_red_dark"
+
+                android:visibility="gone"/>
 
         </LinearLayout>
 

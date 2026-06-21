@@ -147,6 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+
             Toast.makeText(
                     this,
                     "Registration Successful",

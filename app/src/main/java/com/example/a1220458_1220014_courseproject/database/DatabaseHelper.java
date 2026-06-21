@@ -663,4 +663,104 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
 
     }
+    public boolean deleteEvent(int id){
+
+        SQLiteDatabase db =
+                this.getWritableDatabase();
+
+
+        int result =
+                db.delete(
+                        "events",
+                        "id=?",
+                        new String[]{
+                                String.valueOf(id)
+                        }
+                );
+
+
+        return result > 0;
+    }
+    public boolean updateEvent(
+            int id,
+            String title,
+            String description,
+            String category,
+            String date,
+            String location,
+            int seats){
+
+        SQLiteDatabase db =
+                this.getWritableDatabase();
+
+
+        ContentValues values =
+                new ContentValues();
+
+
+        values.put("title",title);
+        values.put("description",description);
+        values.put("category",category);
+        values.put("date",date);
+        values.put("location",location);
+        values.put("seats",seats);
+
+
+        int result =
+                db.update(
+                        "events",
+                        values,
+                        "id=?",
+                        new String[]{
+                                String.valueOf(id)
+                        }
+                );
+
+
+        return result > 0;
+
+    }
+    public boolean updateEvent(
+            int id,
+            String title,
+            String description,
+            String category,
+            String date,
+            String time,
+            String location,
+            int seats
+    ){
+
+        SQLiteDatabase db =
+                this.getWritableDatabase();
+
+
+        ContentValues values =
+                new ContentValues();
+
+
+        values.put("title", title);
+        values.put("description", description);
+        values.put("category", category);
+        values.put("date", date);
+        values.put("time", time);
+        values.put("location", location);
+        values.put("seats", seats);
+
+
+        int result =
+                db.update(
+                        "events",
+                        values,
+                        "id=?",
+                        new String[]{
+                                String.valueOf(id)
+                        }
+                );
+
+
+        return result > 0;
+
+    }
+
 }
