@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
-
+import android.widget.ImageView;
 
 public class EventDetailsFragment extends Fragment {
     TextView availableSeats;
@@ -27,6 +27,7 @@ public class EventDetailsFragment extends Fragment {
     TextView category;
     TextView date;
     TextView location;
+    ImageView image;
 
 
 
@@ -56,6 +57,7 @@ public class EventDetailsFragment extends Fragment {
         category = view.findViewById(R.id.detailCategory);
         date = view.findViewById(R.id.detailDate);
         location = view.findViewById(R.id.detailLocation);
+        image = view.findViewById(R.id.detailImage);
 
 
 
@@ -76,6 +78,22 @@ public class EventDetailsFragment extends Fragment {
             date.setText(bundle.getString("date"));
 
             location.setText(bundle.getString("location"));
+            String imageName = bundle.getString("image");
+
+
+            int imageId =
+                    getResources().getIdentifier(
+                            imageName,
+                            "drawable",
+                            requireContext().getPackageName()
+                    );
+
+
+            if(imageId != 0){
+
+                image.setImageResource(imageId);
+
+            }
 
 
             int available =

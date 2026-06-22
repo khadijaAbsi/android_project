@@ -683,16 +683,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String date,
             String time,
             String location,
-            int seats
-    ){
+            int seats,
+            String image
+    ) {
 
-        SQLiteDatabase db =
-                this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
 
-
-        ContentValues values =
-                new ContentValues();
-
+        ContentValues values = new ContentValues();
 
         values.put("title", title);
         values.put("description", description);
@@ -701,21 +698,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("time", time);
         values.put("location", location);
         values.put("seats", seats);
+        values.put("image", image);
 
-
-        int result =
-                db.update(
-                        "events",
-                        values,
-                        "id=?",
-                        new String[]{
-                                String.valueOf(id)
-                        }
-                );
-
+        int result = db.update(
+                "events",
+                values,
+                "id=?",
+                new String[]{String.valueOf(id)}
+        );
 
         return result > 0;
-
     }
 
 }

@@ -103,6 +103,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             bundle.putString("date", event.getDate());
 
             bundle.putString("location", event.getLocation());
+            bundle.putString("image", event.getImage());
 
 
             fragment.setArguments(bundle);

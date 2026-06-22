@@ -28,7 +28,10 @@ public class EditEventFormFragment extends Fragment {
     EditText category;
     EditText seats;
 
-
+    EditText date;
+    EditText time;
+    EditText location;
+    EditText image;
     Button update;
 
 
@@ -82,6 +85,13 @@ public class EditEventFormFragment extends Fragment {
 
         category =
                 view.findViewById(R.id.editCategory);
+        date = view.findViewById(R.id.editDate);
+
+        time = view.findViewById(R.id.editTime);
+
+        location = view.findViewById(R.id.editLocation);
+
+        image = view.findViewById(R.id.editImage);
 
 
         seats =
@@ -101,6 +111,13 @@ public class EditEventFormFragment extends Fragment {
         description.setText(event.getDescription());
 
         category.setText(event.getCategory());
+        date.setText(event.getDate());
+
+        time.setText(event.getTime());
+
+        location.setText(event.getLocation());
+
+        image.setText(event.getImage());
 
         seats.setText(
                 String.valueOf(event.getSeats())
@@ -125,15 +142,17 @@ public class EditEventFormFragment extends Fragment {
 
                             category.getText().toString(),
 
-                            event.getDate(),
+                            date.getText().toString(),
 
-                            event.getTime(),
+                            time.getText().toString(),
 
-                            event.getLocation(),
+                            location.getText().toString(),
 
                             Integer.parseInt(
                                     seats.getText().toString()
-                            )
+                            ),
+
+                            image.getText().toString()
 
                     );
 
