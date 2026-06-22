@@ -1,7 +1,6 @@
 package com.example.a1220458_1220014_courseproject.fragments;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +15,16 @@ import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 
 public class AddAdminFragment extends Fragment {
 
-    EditText etAdminEmail;
-    EditText etAdminPassword;
-
+    EditText etAdminEmail, etAdminPassword;
     Button btnAddAdmin;
 
-    DatabaseHelper databaseHelper;
-
-    public AddAdminFragment() {
-    }
+    DatabaseHelper db;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
 
         View view =
                 inflater.inflate(
@@ -47,51 +42,29 @@ public class AddAdminFragment extends Fragment {
         btnAddAdmin =
                 view.findViewById(R.id.btnAddAdmin);
 
-        databaseHelper =
-                new DatabaseHelper(requireContext());
+        db = new DatabaseHelper(getContext());
 
         btnAddAdmin.setOnClickListener(v -> {
 
-            String email =
-                    etAdminEmail.getText().toString().trim();
-
-            String password =
-                    etAdminPassword.getText().toString().trim();
-
-            if (TextUtils.isEmpty(email)) {
-
-                etAdminEmail.setError("Enter Email");
-                return;
-            }
-
-            if (TextUtils.isEmpty(password)) {
-
-                etAdminPassword.setError("Enter Password");
-                return;
-            }
-
-            boolean result =
-                    databaseHelper.insertAdmin(
-                            email,
-                            password
+            boolean inserted =
+                    db.insertAdmin(
+                            etAdminEmail.getText().toString(),
+                            etAdminPassword.getText().toString()
                     );
 
-            if (result) {
+            if(inserted){
 
                 Toast.makeText(
-                        requireContext(),
-                        "Admin Added Successfully",
+                        getContext(),
+                        "Admin Added",
                         Toast.LENGTH_SHORT
                 ).show();
 
-                etAdminEmail.setText("");
-                etAdminPassword.setText("");
-
-            } else {
+            }else{
 
                 Toast.makeText(
-                        requireContext(),
-                        "Failed Or Admin Already Exists",
+                        getContext(),
+                        "Failed",
                         Toast.LENGTH_SHORT
                 ).show();
             }

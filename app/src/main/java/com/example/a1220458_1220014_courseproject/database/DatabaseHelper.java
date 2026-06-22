@@ -31,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         "gender TEXT," +
                         "major TEXT," +
                         "phone TEXT" +
+
                         ");";
 
         db.execSQL(CREATE_USERS_TABLE);
