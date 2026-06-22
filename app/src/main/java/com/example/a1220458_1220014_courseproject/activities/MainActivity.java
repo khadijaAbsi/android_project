@@ -28,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
         imgLogo = findViewById(R.id.imgLogo);
         txtTitle = findViewById(R.id.txtTitle);
+        Animation enterAnimation =
+                AnimationUtils.loadAnimation(
+                        this,
+                        R.anim.logo_enter
+                );
+
+        imgLogo.startAnimation(enterAnimation);
 
         new Handler().postDelayed(() -> {
 
