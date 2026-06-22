@@ -11,7 +11,7 @@ import com.example.a1220458_1220014_courseproject.models.Event;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "events_app.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 9;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,10 +30,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         "password TEXT," +
                         "gender TEXT," +
                         "major TEXT," +
-                        "phone TEXT" +
-
+                        "phone TEXT," +
+                        "profile_image TEXT" +
                         ");";
-
         db.execSQL(CREATE_USERS_TABLE);
 
         // Admins Table
@@ -709,6 +708,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
 
         return result > 0;
+    }
+    public void updateProfileImage(
+            String email,
+            String imageUri){
+
+        SQLiteDatabase db =
+                getWritableDatabase();
+
+        ContentValues values =
+                new ContentValues();
+
+        values.put(
+                "profile_image",
+                imageUri
+        );
+
+        db.update(
+                "users",
+                values,
+                "email=?",
+                new String[]{email}
+        );
+    }
+    public String getProfileImage(
+            String email){
+
+        SQLiteDatabase db =
+                getReadableDatabase();
+
+        Cursor cursor =
+                db.rawQuery(
+                        "SELECT profile_image FROM users WHERE email=?",
+                        new String[]{email}
+                );
+
+        String image = null;
+
+        if(cursor.moveToFirst()){
+
+            image = cursor.getString(0);
+
+        }
+
+        cursor.close();
+
+
+        return image;
     }
 
 }

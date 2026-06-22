@@ -1,27 +1,34 @@
 package com.example.a1220458_1220014_courseproject.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import android.widget.TextView;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.widget.ImageView;
 
 import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+
 public class ProfileFragment extends Fragment {
+
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     TextView tvProfileEmail;
     EditText etProfileFirstName;
@@ -29,17 +36,13 @@ public class ProfileFragment extends Fragment {
     EditText etProfilePhone;
     TextView tvProfileGender;
     TextView tvProfileMajor;
-
     EditText etNewPassword;
     EditText etConfirmPassword;
-
     Button btnUpdateProfile;
+    Button btnChooseImage;
+    ImageView imgProfile;
 
     DatabaseHelper databaseHelper;
-    ImageView imgProfile;
-    Button btnChooseImage;
-
-    private static final int PICK_IMAGE_REQUEST = 1;
 
     public ProfileFragment() {
     }
@@ -66,16 +69,15 @@ public class ProfileFragment extends Fragment {
         etConfirmPassword = view.findViewById(R.id.etConfirmPassword);
 
         btnUpdateProfile = view.findViewById(R.id.btnUpdateProfile);
-        imgProfile = view.findViewById(R.id.imgProfile);
-
         btnChooseImage = view.findViewById(R.id.btnChooseImage);
+        imgProfile = view.findViewById(R.id.imgProfile);
 
         databaseHelper = new DatabaseHelper(requireContext());
 
         SharedPreferences preferences =
                 requireActivity().getSharedPreferences(
                         "LoginPrefs",
-                        requireActivity().MODE_PRIVATE
+                        Activity.MODE_PRIVATE
                 );
 
         String email =
@@ -84,8 +86,7 @@ public class ProfileFragment extends Fragment {
                         ""
                 );
 
-        Cursor cursor =
-                databaseHelper.getUserByEmail(email);
+        Cursor cursor = databaseHelper.getUserByEmail(email);
 
         if (cursor.moveToFirst()) {
 
@@ -119,7 +120,6 @@ public class ProfileFragment extends Fragment {
                     )
             );
 
-
             tvProfileMajor.setText(
                     cursor.getString(
                             cursor.getColumnIndexOrThrow("major")
@@ -128,6 +128,8 @@ public class ProfileFragment extends Fragment {
         }
 
         cursor.close();
+
+        loadProfileImage(email);
 
         btnUpdateProfile.setOnClickListener(v -> {
 
@@ -147,67 +149,39 @@ public class ProfileFragment extends Fragment {
                     etConfirmPassword.getText().toString().trim();
 
             if (firstName.length() < 3) {
-
-                etProfileFirstName.setError(
-                        "Minimum 3 characters"
-                );
-
+                etProfileFirstName.setError("Minimum 3 characters");
                 return;
             }
 
             if (lastName.length() < 3) {
-
-                etProfileLastName.setError(
-                        "Minimum 3 characters"
-                );
-
+                etProfileLastName.setError("Minimum 3 characters");
                 return;
             }
 
             if (phone.isEmpty()) {
-
-                etProfilePhone.setError(
-                        "Enter Phone Number"
-                );
-
+                etProfilePhone.setError("Enter Phone Number");
                 return;
             }
 
             if (!newPassword.isEmpty()) {
 
                 if (newPassword.length() < 6) {
-
-                    etNewPassword.setError(
-                            "Password must be at least 6 characters"
-                    );
-
+                    etNewPassword.setError("Password must be at least 6 characters");
                     return;
                 }
 
                 if (!newPassword.matches(".*[A-Za-z].*")) {
-
-                    etNewPassword.setError(
-                            "Password must contain a letter"
-                    );
-
+                    etNewPassword.setError("Password must contain a letter");
                     return;
                 }
 
                 if (!newPassword.matches(".*\\d.*")) {
-
-                    etNewPassword.setError(
-                            "Password must contain a number"
-                    );
-
+                    etNewPassword.setError("Password must contain a number");
                     return;
                 }
 
                 if (!newPassword.equals(confirmPassword)) {
-
-                    etConfirmPassword.setError(
-                            "Passwords do not match"
-                    );
-
+                    etConfirmPassword.setError("Passwords do not match");
                     return;
                 }
             }
@@ -223,11 +197,7 @@ public class ProfileFragment extends Fragment {
             if (updated) {
 
                 if (!newPassword.isEmpty()) {
-
-                    databaseHelper.updatePassword(
-                            email,
-                            newPassword
-                    );
+                    databaseHelper.updatePassword(email, newPassword);
                 }
 
                 Toast.makeText(
@@ -244,43 +214,143 @@ public class ProfileFragment extends Fragment {
                         Toast.LENGTH_SHORT
                 ).show();
             }
-
         });
+
         btnChooseImage.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    Intent.ACTION_PICK
-            );
-
+            Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
-
-            startActivityForResult(
-                    intent,
-                    PICK_IMAGE_REQUEST
-            );
+            startActivityForResult(intent, PICK_IMAGE_REQUEST);
 
         });
+
         return view;
     }
+
+    private void loadProfileImage(String email) {
+        new Thread(() -> {
+            try {
+                String imageString = databaseHelper.getProfileImage(email);
+
+                if (imageString == null || imageString.isEmpty()) return;
+
+                byte[] imageBytes = Base64.decode(imageString, Base64.DEFAULT);
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 4;
+
+                Bitmap bitmap = BitmapFactory.decodeByteArray(
+                        imageBytes, 0, imageBytes.length, options);
+
+                if (bitmap == null) return;
+
+                // ارجع للـ main thread عشان تحدّث الـ UI
+                requireActivity().runOnUiThread(() ->
+                        imgProfile.setImageBitmap(bitmap)
+                );
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     @Override
     public void onActivityResult(int requestCode,
                                  int resultCode,
                                  Intent data) {
 
-        super.onActivityResult(
-                requestCode,
-                resultCode,
-                data
-        );
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST
-                && resultCode == getActivity().RESULT_OK
+                && resultCode == Activity.RESULT_OK
                 && data != null
                 && data.getData() != null) {
 
             Uri imageUri = data.getData();
 
-            imgProfile.setImageURI(imageUri);
+            SharedPreferences preferences =
+                    requireActivity().getSharedPreferences(
+                            "LoginPrefs",
+                            Activity.MODE_PRIVATE
+                    );
+
+            String email =
+                    preferences.getString(
+                            "current_user_email",
+                            ""
+                    );
+
+            try (InputStream inputStream =
+                         requireContext()
+                                 .getContentResolver()
+                                 .openInputStream(imageUri)) {
+
+                if (inputStream == null) {
+                    Toast.makeText(
+                            requireContext(),
+                            "Failed to open image",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    return;
+                }
+
+                Bitmap originalBitmap =
+                        BitmapFactory.decodeStream(inputStream);
+
+                if (originalBitmap == null) {
+                    Toast.makeText(
+                            requireContext(),
+                            "Invalid image",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    return;
+                }
+
+                Bitmap scaledBitmap =
+                        Bitmap.createScaledBitmap(
+                                originalBitmap,
+                                300,
+                                300,
+                                true
+                        );
+
+                ByteArrayOutputStream stream =
+                        new ByteArrayOutputStream();
+
+                scaledBitmap.compress(
+                        Bitmap.CompressFormat.JPEG,
+                        80,
+                        stream
+                );
+
+                String imageString =
+                        Base64.encodeToString(
+                                stream.toByteArray(),
+                                Base64.NO_WRAP
+                        );
+
+                databaseHelper.updateProfileImage(
+                        email,
+                        imageString
+                );
+
+                imgProfile.setImageBitmap(scaledBitmap);
+
+                Toast.makeText(
+                        requireContext(),
+                        "Image Saved",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(
+                        requireContext(),
+                        "Failed to save image",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
         }
     }
 }
