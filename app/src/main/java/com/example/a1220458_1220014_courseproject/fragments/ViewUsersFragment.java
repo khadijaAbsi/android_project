@@ -19,15 +19,13 @@ public class ViewUsersFragment extends Fragment {
 
     ListView listUsers;
 
-    DatabaseHelper databaseHelper;
-
-    public ViewUsersFragment() {
-    }
+    DatabaseHelper db;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
 
         View view =
                 inflater.inflate(
@@ -39,22 +37,18 @@ public class ViewUsersFragment extends Fragment {
         listUsers =
                 view.findViewById(R.id.listUsers);
 
-        databaseHelper =
-                new DatabaseHelper(requireContext());
+        db =
+                new DatabaseHelper(getContext());
 
         ArrayList<String> users =
                 new ArrayList<>();
 
         Cursor cursor =
-                databaseHelper.getAllUsers();
-        System.out.println(
-                "USERS COUNT = " +
-                        cursor.getCount()
-        );
+                db.getAllUsers();
 
         while(cursor.moveToNext()){
 
-            String user =
+            users.add(
 
                     cursor.getString(
                             cursor.getColumnIndexOrThrow("first_name")
@@ -74,17 +68,16 @@ public class ViewUsersFragment extends Fragment {
 
                             cursor.getString(
                                     cursor.getColumnIndexOrThrow("email")
-                            );
+                            )
 
-            users.add(user);
-
+            );
         }
 
         cursor.close();
 
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(
-                        requireContext(),
+                        getContext(),
                         android.R.layout.simple_list_item_1,
                         users
                 );
