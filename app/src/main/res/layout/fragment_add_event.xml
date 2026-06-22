@@ -2,64 +2,85 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
-
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/backintro">
 
 
     <LinearLayout
-
-        android:orientation="vertical"
-
-        android:padding="20dp"
-
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Event"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/green_dark"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"/>
 
 
 
         <EditText
             android:id="@+id/eventTitle"
-            android:hint="Title"
+            android:hint="Event Title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"/>
 
 
         <EditText
             android:id="@+id/eventDescription"
             android:hint="Description"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"/>
+
 
 
         <EditText
             android:id="@+id/eventCategory"
             android:hint="Category"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"/>
+
 
 
         <EditText
             android:id="@+id/eventDate"
-            android:hint="Date"
+            android:hint="Select Date"
+            android:focusable="false"
+            android:clickable="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"/>
+
 
 
         <EditText
             android:id="@+id/eventTime"
-            android:hint="Time"
+            android:hint="Select Time"
+            android:focusable="false"
+            android:clickable="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"/>
+
 
 
         <EditText
             android:id="@+id/eventLocation"
             android:hint="Location"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"/>
+
 
 
         <EditText
@@ -67,14 +88,28 @@
             android:hint="Seats"
             android:inputType="number"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"/>
+
+
+
+        <EditText
+            android:id="@+id/eventImage"
+            android:hint="Image URL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"/>
+
 
 
         <Button
             android:id="@+id/saveEvent"
-            android:text="Save"
+            android:text="Add Event"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="55dp"
+            android:backgroundTint="@color/green_dark"/>
 
 
     </LinearLayout>

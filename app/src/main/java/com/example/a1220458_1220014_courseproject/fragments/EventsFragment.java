@@ -1,47 +1,43 @@
 package com.example.a1220458_1220014_courseproject.fragments;
-import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
+
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.database.Cursor;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.example.a1220458_1220014_courseproject.R;
-import com.example.a1220458_1220014_courseproject.adapters.EventAdapter;
-import com.example.a1220458_1220014_courseproject.models.Event;
-
-
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.a1220458_1220014_courseproject.R;
+import com.example.a1220458_1220014_courseproject.adapters.EventAdapter;
+import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
+import com.example.a1220458_1220014_courseproject.models.Event;
 
 import java.util.ArrayList;
 
 
-
 public class EventsFragment extends Fragment {
+
+
+    RecyclerView recyclerView;
+
+    TextView emptyText;
 
     DatabaseHelper databaseHelper;
 
-    RecyclerView recyclerView;
-    TextView emptyText;
-
     ArrayList<Event> allEvents;
-
 
     EventAdapter adapter;
 
-
     SearchView searchView;
-
 
     Spinner categorySpinner;
 
@@ -52,67 +48,199 @@ public class EventsFragment extends Fragment {
 
 
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(
-                R.layout.fragment_events,
-                container,
-                false);
+
+        View view =
+                inflater.inflate(
+                        R.layout.fragment_events,
+                        container,
+                        false);
+
+
+
+        recyclerView =
+                view.findViewById(
+                        R.id.eventsRecyclerView);
 
 
         emptyText =
-                view.findViewById(R.id.emptyText);
+                view.findViewById(
+                        R.id.emptyText);
 
 
 
-        recyclerView = view.findViewById(R.id.eventsRecyclerView);
+        searchView =
+                view.findViewById(
+                        R.id.searchView);
 
 
-        searchView = view.findViewById(R.id.searchView);
 
-
-        categorySpinner = view.findViewById(R.id.categorySpinner);
-
+        categorySpinner =
+                view.findViewById(
+                        R.id.categorySpinner);
 
 
 
         recyclerView.setLayoutManager(
-                new LinearLayoutManager(getContext()));
+                new LinearLayoutManager(getContext())
+        );
 
 
-
-
-        allEvents = new ArrayList<>();
 
         databaseHelper =
                 new DatabaseHelper(getContext());
 
 
+
+        loadEvents();
+
+
+
+        String[] categories = {
+
+                "All",
+                "Technology",
+                "Competition",
+                "Career",
+                "Academic",
+                "Business",
+                "Ceremony"
+
+        };
+
+
+
+        ArrayAdapter<String> spinnerAdapter =
+                new ArrayAdapter<>(
+                        getContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        categories
+                );
+
+
+        categorySpinner.setAdapter(spinnerAdapter);
+
+
+
+        categorySpinner.setOnItemSelectedListener(
+                new android.widget.AdapterView.OnItemSelectedListener() {
+
+
+                    @Override
+                    public void onItemSelected(
+                            android.widget.AdapterView<?> parent,
+                            View view,
+                            int position,
+                            long id) {
+
+
+                        selectedCategory =
+                                categories[position];
+
+
+                        updateEvents();
+
+
+                    }
+
+
+                    @Override
+                    public void onNothingSelected(
+                            android.widget.AdapterView<?> parent) {
+
+                    }
+
+                });
+
+
+
+        searchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+
+
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+
+                        return false;
+
+                    }
+
+
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+
+
+                        searchText = newText;
+
+
+                        updateEvents();
+
+
+                        return true;
+
+                    }
+
+                });
+
+
+
+        return view;
+
+    }
+
+
+
+
+    private void loadEvents(){
+
+
+        allEvents = new ArrayList<>();
+
+
         Cursor cursor =
                 databaseHelper.getAllEvents();
-        System.out.println("DB COUNT = " + cursor.getCount());
+
+
+
+        System.out.println(
+                "EVENTS FROM DATABASE = "
+                        + cursor.getCount()
+        );
 
 
 
         while(cursor.moveToNext()){
 
 
-            allEvents.add(
+
+            String name =
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow("title")
+                    );
+
+
+            System.out.println(
+                    "EVENT NAME = " + name
+            );
+
+
+
+            Event event =
                     new Event(
+
 
                             cursor.getInt(
                                     cursor.getColumnIndexOrThrow("id")
                             ),
 
 
-                            cursor.getString(
-                                    cursor.getColumnIndexOrThrow("title")
-                            ),
+                            name,
 
 
                             cursor.getString(
@@ -149,124 +277,38 @@ public class EventsFragment extends Fragment {
                                     cursor.getColumnIndexOrThrow("image")
                             )
 
-                    )
-            );
+                    );
+
+
+
+            allEvents.add(event);
 
 
         }
 
 
+
         cursor.close();
 
 
-        adapter = new EventAdapter(new ArrayList<>(allEvents));
+
+        System.out.println(
+                "TOTAL EVENTS LOADED = "
+                        + allEvents.size()
+        );
+
+
+
+        adapter =
+                new EventAdapter(
+                        new ArrayList<>(allEvents)
+                );
 
 
         recyclerView.setAdapter(adapter);
 
 
-
-
-        String[] categories = {
-
-                "All",
-                "Technology",
-                "Competition"
-
-        };
-
-
-
-
-        ArrayAdapter<String> spinnerAdapter =
-                new ArrayAdapter<>(
-                        getContext(),
-                        android.R.layout.simple_spinner_dropdown_item,
-                        categories);
-
-
-
-        categorySpinner.setAdapter(spinnerAdapter);
-
-
-
-
-        categorySpinner.setOnItemSelectedListener(
-                new android.widget.AdapterView.OnItemSelectedListener() {
-
-
-                    @Override
-                    public void onItemSelected(
-                            android.widget.AdapterView<?> parent,
-                            View view,
-                            int position,
-                            long id) {
-
-
-                        selectedCategory =
-                                categories[position];
-
-
-                        updateEvents();
-
-
-                    }
-
-
-
-                    @Override
-                    public void onNothingSelected(
-                            android.widget.AdapterView<?> parent) {
-
-
-                    }
-
-                });
-
-
-
-
-
-        searchView.setOnQueryTextListener(
-                new SearchView.OnQueryTextListener() {
-
-
-
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-
-
-                        return false;
-
-                    }
-
-
-
-
-
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-
-
-                        searchText = newText;
-
-
-                        updateEvents();
-
-
-                        return true;
-
-                    }
-
-                });
-
-
-
-
-        return view;
-
     }
-
 
 
 
@@ -277,9 +319,8 @@ public class EventsFragment extends Fragment {
 
 
 
-        ArrayList<Event> filteredList =
+        ArrayList<Event> filtered =
                 new ArrayList<>();
-
 
 
 
@@ -287,15 +328,16 @@ public class EventsFragment extends Fragment {
 
 
 
-            boolean searchMatch =
+            boolean search =
                     event.getTitle()
                             .toLowerCase()
-                            .contains(searchText.toLowerCase());
+                            .contains(
+                                    searchText.toLowerCase()
+                            );
 
 
 
-
-            boolean categoryMatch =
+            boolean category =
                     selectedCategory.equals("All")
                             ||
                             event.getCategory()
@@ -303,13 +345,9 @@ public class EventsFragment extends Fragment {
 
 
 
+            if(search && category){
 
-
-            if(searchMatch && categoryMatch){
-
-
-                filteredList.add(event);
-
+                filtered.add(event);
 
             }
 
@@ -318,9 +356,11 @@ public class EventsFragment extends Fragment {
 
 
 
+        adapter.updateList(filtered);
 
-        adapter.updateList(filteredList);
-        if(filteredList.isEmpty()){
+
+
+        if(filtered.isEmpty()){
 
             emptyText.setVisibility(View.VISIBLE);
 
@@ -329,7 +369,6 @@ public class EventsFragment extends Fragment {
             emptyText.setVisibility(View.GONE);
 
         }
-
 
 
     }

@@ -259,7 +259,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public void insertEvent(Event event){
 
-
         SQLiteDatabase db =
                 this.getWritableDatabase();
 
@@ -285,17 +284,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("image", event.getImage());
 
 
-
-        long result =
-                db.insert(
-                        "events",
-                        null,
-                        values
-                );
-
-
-        System.out.println("INSERT RESULT = " + result);
-
+        db.insert(
+                "events",
+                null,
+                values
+        );
 
     }
 

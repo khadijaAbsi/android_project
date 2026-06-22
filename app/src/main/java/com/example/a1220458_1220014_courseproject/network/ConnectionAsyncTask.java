@@ -3,6 +3,7 @@ package com.example.a1220458_1220014_courseproject.network;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 
 import com.example.a1220458_1220014_courseproject.activities.IntroductionActivity;
@@ -15,8 +16,7 @@ import java.util.ArrayList;
 
 
 public class ConnectionAsyncTask
-        extends AsyncTask<String,String,String> {
-
+        extends AsyncTask<String, String, String> {
 
 
     Activity activity;
@@ -31,31 +31,30 @@ public class ConnectionAsyncTask
 
 
 
-
     @Override
-    protected String doInBackground(String... strings){
+    protected String doInBackground(String... strings) {
 
 
         return HttpManager.getData(strings[0]);
-
 
     }
 
 
 
 
-
     @Override
-    protected void onPostExecute(String s){
+    protected void onPostExecute(String s) {
 
 
         if(s == null){
 
-            android.widget.Toast.makeText(
+
+            Toast.makeText(
                     activity,
                     "Failed to connect to server",
-                    android.widget.Toast.LENGTH_SHORT
+                    Toast.LENGTH_SHORT
             ).show();
+
 
             return;
 
@@ -70,11 +69,13 @@ public class ConnectionAsyncTask
 
         if(events == null || events.size() == 0){
 
-            android.widget.Toast.makeText(
+
+            Toast.makeText(
                     activity,
                     "No events found",
-                    android.widget.Toast.LENGTH_SHORT
+                    Toast.LENGTH_SHORT
             ).show();
+
 
             return;
 
@@ -82,9 +83,14 @@ public class ConnectionAsyncTask
 
 
 
+
         System.out.println(s);
 
-        System.out.println("EVENTS SIZE = " + events.size());
+        System.out.println(
+                "EVENTS SIZE = "
+                        + events.size()
+        );
+
 
 
 
@@ -93,15 +99,27 @@ public class ConnectionAsyncTask
 
 
 
+
         db.clearEvents();
+
 
 
 
         for(Event e : events){
 
+
             db.insertEvent(e);
 
+
+            System.out.println(
+                    "DATABASE COUNT = "
+                            + db.getAllEvents().getCount()
+            );
+
+
         }
+
+
 
 
 
@@ -109,8 +127,8 @@ public class ConnectionAsyncTask
                 .openlogin();
 
 
-    }
 
+    }
 
 
 }
