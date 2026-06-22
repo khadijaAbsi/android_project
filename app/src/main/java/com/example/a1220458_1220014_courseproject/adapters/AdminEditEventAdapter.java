@@ -23,7 +23,6 @@ public class AdminEditEventAdapter
         extends RecyclerView.Adapter<AdminEditEventAdapter.ViewHolder>{
 
 
-
     ArrayList<Event> events;
 
 
@@ -39,19 +38,14 @@ public class AdminEditEventAdapter
 
 
 
-
     public AdminEditEventAdapter(
             ArrayList<Event> events,
             OnEventClick listener){
 
-
         this.events = events;
-
         this.listener = listener;
 
     }
-
-
 
 
 
@@ -65,14 +59,13 @@ public class AdminEditEventAdapter
         View view =
                 LayoutInflater.from(parent.getContext())
                         .inflate(
-                                R.layout.item_admin_edit_event,
+                                R.layout.item_edit_event,
                                 parent,
                                 false
                         );
 
 
         return new ViewHolder(view);
-
 
     }
 
@@ -95,18 +88,25 @@ public class AdminEditEventAdapter
         );
 
 
+        holder.category.setText(
+                event.getCategory()
+        );
+
+
+        holder.date.setText(
+                event.getDate()
+        );
+
+
 
         holder.itemView.setOnClickListener(v -> {
 
-
             listener.click(event);
-
 
         });
 
 
     }
-
 
 
 
@@ -122,12 +122,13 @@ public class AdminEditEventAdapter
 
 
 
-
     static class ViewHolder
             extends RecyclerView.ViewHolder{
 
 
         TextView title;
+        TextView category;
+        TextView date;
 
 
 
@@ -137,10 +138,24 @@ public class AdminEditEventAdapter
             super(itemView);
 
 
+
             title =
                     itemView.findViewById(
                             R.id.editEventTitle
                     );
+
+
+            category =
+                    itemView.findViewById(
+                            R.id.editEventCategory
+                    );
+
+
+            date =
+                    itemView.findViewById(
+                            R.id.editEventDate
+                    );
+
 
         }
 

@@ -23,7 +23,7 @@ public class IntroductionActivity extends AppCompatActivity {
 
             new ConnectionAsyncTask(this)
                     .execute(
-                            "https://mocki.io/v1/bd8f74ef-ed76-4e7c-8379-1ce654070bf8"
+                            "https://mocki.io/v1/a29291b4-28a6-4b38-a907-bba321311299"
                     );
 
         });

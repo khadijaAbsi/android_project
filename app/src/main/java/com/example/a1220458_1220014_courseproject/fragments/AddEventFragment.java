@@ -18,14 +18,16 @@ import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 import com.example.a1220458_1220014_courseproject.models.Event;
 
-
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import java.util.Calendar;
 
 public class AddEventFragment extends Fragment {
 
 
 
     EditText title, description, category,
-            date, time, location, seats;
+            date, time, location, seats, image;
 
 
     Button save;
@@ -83,12 +85,71 @@ public class AddEventFragment extends Fragment {
 
         seats =
                 view.findViewById(R.id.eventSeats);
+        image =
+                view.findViewById(R.id.eventImage);
 
 
         save =
                 view.findViewById(R.id.saveEvent);
 
+        date.setOnClickListener(v -> {
 
+            Calendar c = Calendar.getInstance();
+
+            DatePickerDialog dialog =
+                    new DatePickerDialog(
+                            getContext(),
+
+                            (view1, year, month, day) -> {
+
+                                date.setText(
+                                        year + "-" +
+                                                (month + 1) + "-" +
+                                                day
+                                );
+
+                            },
+
+                            c.get(Calendar.YEAR),
+                            c.get(Calendar.MONTH),
+                            c.get(Calendar.DAY_OF_MONTH)
+
+                    );
+
+            dialog.show();
+
+        });
+
+
+
+        time.setOnClickListener(v -> {
+
+            Calendar c = Calendar.getInstance();
+
+
+            TimePickerDialog dialog =
+                    new TimePickerDialog(
+
+                            getContext(),
+
+                            (view12, hour, minute) -> {
+
+                                time.setText(
+                                        hour + ":" + minute
+                                );
+
+                            },
+
+                            c.get(Calendar.HOUR_OF_DAY),
+                            c.get(Calendar.MINUTE),
+
+                            true
+                    );
+
+
+            dialog.show();
+
+        });
 
         save.setOnClickListener(v -> {
 
@@ -115,7 +176,8 @@ public class AddEventFragment extends Fragment {
                                     seats.getText().toString()
                             ),
 
-                            ""
+                            image.getText().toString()
+
 
                     );
 
