@@ -26,8 +26,17 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         dbHelper.getWritableDatabase();
 
+
+
         imgLogo = findViewById(R.id.imgLogo);
         txtTitle = findViewById(R.id.txtTitle);
+        Animation enterAnimation =
+                AnimationUtils.loadAnimation(
+                        this,
+                        R.anim.logo_enter
+                );
+
+        imgLogo.startAnimation(enterAnimation);
 
         new Handler().postDelayed(() -> {
 
