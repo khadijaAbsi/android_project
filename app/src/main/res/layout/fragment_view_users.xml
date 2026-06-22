@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ListView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/listUsers"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backintro"/>
+    android:orientation="vertical"
+    android:background="@drawable/backintro"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Users List"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#1F6F5F"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registered Users"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <ListView
+        android:id="@+id/listUsers"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="#6FCF97"
+        android:dividerHeight="1dp"
+        android:background="#00FFFFFF"/>
+
+</LinearLayout>
