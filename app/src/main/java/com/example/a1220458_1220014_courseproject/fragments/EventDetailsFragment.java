@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import com.example.a1220458_1220014_courseproject.R;
 import com.example.a1220458_1220014_courseproject.database.DatabaseHelper;
 import android.widget.ImageView;
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
 
 public class EventDetailsFragment extends Fragment {
     TextView availableSeats;
@@ -78,22 +80,12 @@ public class EventDetailsFragment extends Fragment {
             date.setText(bundle.getString("date"));
 
             location.setText(bundle.getString("location"));
-            String imageName = bundle.getString("image");
+            String imageUrl = bundle.getString("image");
 
 
-            int imageId =
-                    getResources().getIdentifier(
-                            imageName,
-                            "drawable",
-                            requireContext().getPackageName()
-                    );
-
-
-            if(imageId != 0){
-
-                image.setImageResource(imageId);
-
-            }
+            Glide.with(requireContext())
+                    .load(imageUrl)
+                    .into(image);
 
 
             int available =
